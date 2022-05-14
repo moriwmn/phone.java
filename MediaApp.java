@@ -1,0 +1,92 @@
+package ex2;
+
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+
+
+public class MediaApp {
+
+	private ArrayList<Media> mediaList;
+	private static Scanner input;
+
+
+public MediaApp() {
+	this.mediaList= new ArrayList<Media>();
+	input = new Scanner(System.in); 
+}
+public ArrayList<Media> getMediaList() {
+	return mediaList;
+}
+
+public void setMediaList(ArrayList<Media> mediaList) {
+	this.mediaList = mediaList;
+}
+public void menu() {
+	
+	Scanner input = new Scanner(System.in);
+	int exit = 0;
+	while (exit == 0) {
+		System.out.println("********************Menu********************");
+		System.out.println("1. add new media");
+		System.out.println("2. play media by name");
+		System.out.println("3. play all media");
+		System.out.println("4. Exit from media");
+		System.out.println("5. Exit");
+
+		int func = input.nextInt();
+		input.nextLine();
+		
+		switch (func) {
+		case 1: AddMedia(); break;
+		case 2: PlayMediaByName(); break; 
+		case 3: PlayAll(); break; 
+		case 4:exit++; break; 
+		}
+	}
+	input.close();
+}
+public void AddMedia() {
+	System.out.println("please choose type of media- song or video");
+	String type = input.nextLine();
+	System.out.println("please enter name of "+type);
+	String name=input.nextLine();
+	System.out.println("please enter the length of "+type);
+	double length=input.nextDouble();
+	Media newMedia=new Media(type,name,length);
+	mediaList.add(newMedia);
+	}
+	
+public void PlayMediaByName() {
+	System.out.println("What is the name of song or video do you want to play?");
+	String name = input.nextLine();
+	boolean exist=false;
+	for (int i = 0; i <mediaList.size(); i++)
+	{
+        if(mediaList.get(i).GetName().equals(name)) {
+        	System.out.println("the "+mediaList.get(i).GetType()+" "+mediaList.get(i).GetName()+" is now playing for  "+mediaList.get(i).GetLength() +" time");
+        	exist=true;
+        	break;
+        }
+	}
+	if(exist==false) {
+		System.out.println("this media- " +name+ " not exist in media list");
+}
+}
+
+public void PlayAll() {
+	for (int i = 0; i <mediaList.size(); i++)
+	{
+		System.out.println("the "+mediaList.get(i).GetType()+" "+mediaList.get(i).GetName()+" is now playing for  "+mediaList.get(i).GetLength() +" time");
+	}	
+}
+
+
+}
+
+ 
+		
