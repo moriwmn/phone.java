@@ -1,0 +1,279 @@
+package ex2;
+
+//Group #9
+//Shira Landau 208275248
+//Noa Kohan 315243501
+//Moriya Weitzman 206607459
+
+import java.util.Scanner;
+import java.util.ArrayList; // import the ArrayList class
+import java.util.Collections;
+import java.io.*;
+
+
+public class PhoneBookApp {
+	
+	private ArrayList<Contact> contacts;
+	
+	private static Scanner input; // create an object of Scanner
+
+	//constructor:
+	public PhoneBookApp() { 
+		this.setContacts(new ArrayList<Contact>());
+	}
+	
+	//getter and setter:
+	public ArrayList<Contact> getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(ArrayList<Contact> contacts) {
+		this.contacts = contacts;
+	}
+	
+	//*******************
+	//methods:
+	
+	public static void print_menu() {
+		System.out.println("*******menu*******");
+		System.out.println("To add a contact- press 1");
+		System.out.println("To remove a contact- press 2");
+		System.out.println("To print all phonebook- press 3");
+		System.out.println("To find a contact- press 4");
+		System.out.println("To sort by name- press 5");
+		System.out.println("To sort by number- press 6");
+		System.out.println("To remove duplicated contacts- press 7");
+		System.out.println("To reverse phonebook order- press 8");
+		System.out.println("To save phonebook in a file- press 9");
+		System.out.println("To import phonebook from file- press 10");
+		System.out.println("To Exit- press 11");
+		System.out.println("*******************");
+	}
+	
+	public void add_contact() { //1
+		System.out.println("Please enter contact name");
+		String name = input.nextLine();
+
+		System.out.println("Enter phone number");
+		String num = input.nextLine();
+		Contact ContactNew = new Contact(name, num); //create a new contact
+		contacts.add(ContactNew);
+	}
+	
+	public void remove_contact() { //2
+		System.out.println("enter name of contact to remove");
+		String name= input.nextLine();
+		int i=0;
+		String contact_name = contacts.get(i).get_name();
+		while(contacts.size()>i ) {
+			if(contact_name.equals(name))
+			{
+				contacts.remove(i);
+				break;
+			}
+			i++;
+			contact_name=contacts.get(i).get_name();
+		}
+	}
+	
+	public void print_book() { //3
+		for (int i = 0; i < contacts.size(); i++)
+            System.out.println(this.contacts.get(i).get_name() +" : "+this.contacts.get(i).get_number());
+	}
+	
+	public void find_contact() { //4
+		System.out.println("What is the name do you want to find:");
+		String name = input.nextLine();
+		int counter=0;
+		for (int i = 0; i <contacts.size(); i++)
+		{
+            if(contacts.get(i).get_name().equals(name))
+            {
+            	System.out.println(this.contacts.get(i).get_name() +" : "+this.contacts.get(i).get_number());
+            	counter++;
+            }
+		}  
+		
+		if(counter!=0)
+			System.out.println("The name "+ name + " appears "+counter + " times in the phonebook");
+		else
+			System.out.println(name + " is not in the phonebook");
+				
+	}
+	
+	public void sort_by_name() { //5
+		Collections.sort(contacts, Contact.ContNameComparator);
+	}
+	
+	public void sort_by_number() { //6
+		Collections.sort(contacts, Contact.ContNumberComparator );
+	}
+	
+	public void remove_duplicate() { //7
+		// Create a new ArrayList
+		ArrayList<Contact> tempList = new ArrayList<Contact>();
+	    // Traverse through the first list
+	    for (int i = 0; i <contacts.size(); i++)
+	    {
+	        // If this element is not present in tempList
+	        // then add it
+	        if (!tempList.contains(contacts.get(i))) 
+	            tempList.add(contacts.get(i));
+	    }
+	    // return the new list
+	    this.contacts = tempList;
+	}
+	
+	public void invert_order() { //8
+		ArrayList<Contact> revArrayList = new ArrayList<Contact>();
+        for (int i = contacts.size() - 1; i >= 0; i--) {
+            // append the elements in reverse order
+            revArrayList.add(contacts.get(i));
+        }
+        // Return the reversed arraylist
+        contacts=revArrayList;
+        System.out.println("reversed successfully!");
+	}
+	
+	public void save_in_file() { //9
+		System.out.println("File name:");//getting the file name from user
+		String file_Name = input.nextLine();
+		
+		File phone_book_file = null;
+		try {//creating a file if it doesn't exist yet
+			phone_book_file = new File(file_Name + ".txt");
+			if (!phone_book_file.createNewFile()) {
+				System.out.println("There is a file under this name");
+				return;
+			}
+		} catch (IOException e) {
+			System.out.println("Can not open file");
+			e.printStackTrace();
+			return;
+		}
+		
+		String text = "";
+		for (int i =0;i< contacts.size(); i++) {
+			text = text + this.contacts.get(i).get_name() + "," + this.contacts.get(i).get_number() + "\n";
+		try {
+			FileWriter theWriter = new FileWriter(phone_book_file.getName());
+			theWriter.write(text);
+			theWriter.close();
+			
+		} catch (IOException e) {
+			System.out.println("Can not write to file");
+			e.printStackTrace();
+			return;
+		}
+		}//for
+		System.out.println("PhoneBook saved to file");
+	}
+	
+	public void import_from_file() { //10
+
+		System.out.println("please enter the file name:");
+		String file_name = input.nextLine();
+		
+		try {
+			File phone_book_File = new File(file_name + ".txt");
+			Scanner theReader = new Scanner(phone_book_File);
+			while (theReader.hasNextLine()) {
+		        String line_reader = theReader.nextLine();
+		        if (line_reader == "")
+		        	break;
+		        String[] data = line_reader.split(",");
+		        this.contacts.add(new Contact(data[0],data[1]));
+			}
+			theReader.close();
+			System.out.println("PhoneBook has load from file");
+		} catch (FileNotFoundException e) {
+			System.out.println("file not found");
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public boolean contatIsExist(String name) {
+		for (int i = 0; i <contacts.size(); i++)
+		{
+            if(contacts.get(i).get_name().equals(name))
+            	return false;
+		}  
+		return false;
+	}
+	
+	
+	public void add_contact_ahead(String  add_name, String add_num) { 
+	//another function to add some contact ahead for debug and check :)
+		Contact ContactNew = new Contact(add_name, add_num); //create a new contact
+		contacts.add(ContactNew);
+	}
+	
+	//******************
+	//main:
+	
+	public static void Main(String[] args) {
+	
+	input = new Scanner(System.in); 
+	PhoneBookApp MyPhoneBook = new PhoneBookApp();
+	
+	//add some contacts, as requested:
+	MyPhoneBook.add_contact_ahead("Shira", "0542473833");
+	MyPhoneBook.add_contact_ahead("Noa", "0508231942");
+	MyPhoneBook.add_contact_ahead("Moriya", "0584913000");
+
+	
+	//infinite loop until the user choose 0 for exit
+	int ret=1;
+	while(ret != 0)
+	{
+		print_menu();
+		int choice = input.nextInt();
+		input.nextLine();
+		switch(choice) {
+		case 1: 
+			MyPhoneBook.add_contact();
+			break;
+		case 2: 
+			MyPhoneBook.remove_contact();
+			break;
+		case 3: 
+			MyPhoneBook.print_book();
+			break;
+		case 4: 
+			MyPhoneBook.find_contact(); 
+			break;
+		case 5: 
+			MyPhoneBook.sort_by_name(); 
+			break;
+		case 6: 
+			MyPhoneBook.sort_by_number();
+			break;
+		case 7: 
+			MyPhoneBook.remove_duplicate();
+			break;
+		case 8: 
+			MyPhoneBook.invert_order();
+			break;
+		case 9: 
+			MyPhoneBook.save_in_file();
+			break;
+		case 10: 
+			MyPhoneBook.import_from_file();
+			break;
+		case 11:
+			System.out.println("Have a good day :)");
+			ret = 0; //end of loop :)
+			break;
+		default:
+			System.out.println("Invalid number, try again");
+		
+		}//switch
+	}//while
+	input.close(); 
+
+	}//main
+	
+	
+	
+} //class
