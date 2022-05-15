@@ -147,29 +147,34 @@ public class Phone {
 				this.calendar.add_event();
 		
 		}
-		case 2: { //delete chat 
-			String name = get_and_validate_contact();
-			if (name != "error") {
-				this.calendar.delete_event(name);
+		case 2: { //delete event
+			System.out.println("Do you want to delete a meeting or event? please enter: M/E");
+			String kindOfEv = input.nextLine();
+			String dure;
+			if (kindOfEv == "M" || kindOfEv == "m")
+			{
+				System.out.println("Who is the meeting member?");
+				String name = get_and_validate_contact();//checking if the person is in the phonebook
+				if (name != "error") 
+					this.calendar.remove_meeting(name);	
+				else
+					System.out.println("there is no such a contact in your phonebook"); //TODO return on error		
+			}
+			if (kindOfEv == "E" || kindOfEv == "e")
+				this.calendar.remove_event();
+
+		}
+		case 3: { //print events of the day
+				this.calendar.show_events_of_the_day();
 			}	
-			else
-				System.out.println("there is no such a contact in your phonebook"); //TODO return on error
+
+		case 4: { //print events with contact by order
+			this.calendar.print_meeting_with_contact();
 		}
-		case 3: { //print chat w/contact
-			String name = get_and_validate_contact();
-			if (name != "error") {
-				this.sms.print_chat(name);
-			}	
-			else
-				System.out.println(""); //return on error
+			
 		}
-		case 4: { //search for phrase
-			System.out.println("which phrase you want to search? ");
-			String phrase= input.nextLine();
-			this.sms.find_phrase(phrase);
-		}
-		case 5: { // print all chats
-			this.sms.print_all_chats();
+		case 5: { //check if 2 events collided
+			this.calendar.
 		}
 		case 6: { // exit
 			
