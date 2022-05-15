@@ -57,6 +57,17 @@ public class CalendarApp {
 	}
 	
 	public void remove_event() {}
+	public void menu() {
+	System.out.println("********************Menu********************");
+	System.out.println("1. add event ");
+	System.out.println("2. delete event");
+	System.out.println("3. Print events of a specific date ");
+	System.out.println("4.Print meetings with a specific contact date by order  ");
+	System.out.println("5. Identify and remove overlapping events ");
+	System.out.println("6.print all events and meetings ");
+	System.out.println("7.exit ");
+	System.out.println("********************************************");
+	}
 	public void show_events_of_the_day(int day) {}
 	public void print_meeting_with_contact(int day) {}
 	
