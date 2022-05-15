@@ -123,52 +123,37 @@ public class Phone {
 		
 	}
 	public void CalendarApp_handle() {
-		this.calendar.print_menu(); //TODO: decide if print is part of sub class App or phone.
+		this.calendar.menu(); //TODO: decide if print is part of sub class App or phone.
 		int choice = input.nextInt();
 		switch (choice) {
 		case 1:
-			{ //add event
-				System.out.println("Do you want to create a meeting or event? please enter: M/E");
-				String kindOfEv = input.nextLine();
-				String dure;
-				if (kindOfEv == "M" || kindOfEv == "m")
-				{
-					//AddMeeting()
-					System.out.println("Who will attend the meeting?");
-					String name = get_and_validate_contact();//checking if the person is in the phonebook
-					if (name != "error") {
-						System.out.println("when is the event?");
-						//create date object
-						System.out.println("for how long?");
-						dure=input.nextLine();
-						//MeetingEvent new_event=new MeetingEvent(date,dure, choice)
-						this.calendar.add_event();
-					}	
-					else
-						System.out.println("there is no such a contact in your phonebook"); //return on error
-					
-					
-				}
-				if (choice == "E" || choice == "e")
-				{
-					//AddEvent()
-					System.out.println("when is the event?");
-					//create date object
-					System.out.println("for how long?");
-					dure=input.nextLine();
-					System.out.println("please describe the event");
-					choice = input.nextLine();//description
-					//RegEvent new_event=new RegEvent(date,dure, choice)
-					//array[index].add(value); - inserting
-			
+		{ //add event
+			System.out.println("Do you want to create a meeting or event? please enter: M/E");
+			String kindOfEv = input.nextLine();
+			String dure;
+			if (kindOfEv == "M" || kindOfEv == "m")
+			{
+				//AddMeeting()
+				System.out.println("Who will attend the meeting?");
+				String name = get_and_validate_contact();//checking if the person is in the phonebook
+				if (name != "error") 
+					this.calendar.add_meeting(name);	
+				else
+					System.out.println("there is no such a contact in your phonebook"); //TODO return on error		
+			}
+			if (kindOfEv == "E" || kindOfEv == "e")
+			{
+				//AddEvent()
+				this.calendar.add_event();
+		
 		}
 		case 2: { //delete chat 
 			String name = get_and_validate_contact();
 			if (name != "error") {
-				this.sms.delete_chat(name);
+				this.calendar.delete_event(name);
 			}	
 			else
-				System.out.println(""); //return on error
+				System.out.println("there is no such a contact in your phonebook"); //TODO return on error
 		}
 		case 3: { //print chat w/contact
 			String name = get_and_validate_contact();
