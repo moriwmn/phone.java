@@ -14,7 +14,7 @@ public class Phone {
 	
 	private SmsApp sms;
 //	private MediaApp media;
-//	private CalendarApp calendar;
+	private CalendarApp calendar;
 	private PhoneBookApp phoneBook;
 	private static Scanner input; // create an object of Scanner
 	
@@ -22,7 +22,7 @@ public class Phone {
 	{
 		this.sms= new SmsApp();
 //		this.media=new MediaApp();
-//		this.Calendar= new CalendarApp(); 
+		this.calendar= new CalendarApp(); 
 //		this.phoneBook=new PhoneBookApp();
 	}
 	
@@ -52,7 +52,7 @@ public class Phone {
 				CalendarApp_handle(); 
 				break;
 			case 4: 
-				MediaApp_handle();
+				media.menu();
 				break;
 			case 5: 
 				exit++; 
@@ -123,6 +123,77 @@ public class Phone {
 		
 	}
 	public void CalendarApp_handle() {
+		this.calendar.print_menu(); //TODO: decide if print is part of sub class App or phone.
+		int choice = input.nextInt();
+		switch (choice) {
+		case 1:
+			{ //add event
+				System.out.println("Do you want to create a meeting or event? please enter: M/E");
+				String kindOfEv = input.nextLine();
+				String dure;
+				if (kindOfEv == "M" || kindOfEv == "m")
+				{
+					//AddMeeting()
+					System.out.println("Who will attend the meeting?");
+					String name = get_and_validate_contact();//checking if the person is in the phonebook
+					if (name != "error") {
+						System.out.println("when is the event?");
+						//create date object
+						System.out.println("for how long?");
+						dure=input.nextLine();
+						//MeetingEvent new_event=new MeetingEvent(date,dure, choice)
+						this.calendar.add_event();
+					}	
+					else
+						System.out.println("there is no such a contact in your phonebook"); //return on error
+					
+					
+				}
+				if (choice == "E" || choice == "e")
+				{
+					//AddEvent()
+					System.out.println("when is the event?");
+					//create date object
+					System.out.println("for how long?");
+					dure=input.nextLine();
+					System.out.println("please describe the event");
+					choice = input.nextLine();//description
+					//RegEvent new_event=new RegEvent(date,dure, choice)
+					//array[index].add(value); - inserting
+			
+		}
+		case 2: { //delete chat 
+			String name = get_and_validate_contact();
+			if (name != "error") {
+				this.sms.delete_chat(name);
+			}	
+			else
+				System.out.println(""); //return on error
+		}
+		case 3: { //print chat w/contact
+			String name = get_and_validate_contact();
+			if (name != "error") {
+				this.sms.print_chat(name);
+			}	
+			else
+				System.out.println(""); //return on error
+		}
+		case 4: { //search for phrase
+			System.out.println("which phrase you want to search? ");
+			String phrase= input.nextLine();
+			this.sms.find_phrase(phrase);
+		}
+		case 5: { // print all chats
+			this.sms.print_all_chats();
+		}
+		case 6: { // exit
+			
+		}
+
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + choice);
+		}
+		
 		
 	}
 	
