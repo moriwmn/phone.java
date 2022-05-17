@@ -35,9 +35,12 @@ public abstract class Event implements Comparable<Event>{
 		return myDate.compareTo(otherDate);
 	}
 
-@Override
-public String toString() {
-	return "\r\n"+date.toString()+"\r\nduration: " + duration + " minutes";
-}
+	@Override
+	public String toString() {
+		return "\r\n"+date.toString()+"\r\nduration: " + duration + " minutes";
+	}
+	@Override
+	public abstract boolean equals(Object obj);
+	
 
 }//class
