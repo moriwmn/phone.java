@@ -177,6 +177,31 @@ public class CalendarApp {
 			System.out.println("error messege");//TODO error messege
 			return false;
 		}
+		  
+	public void remove_same_time_meatings(){
+		for (Event event : calendar ){
+		    int index = get_event_index(event); //to delete and change the for loop? 
+		    for (int i=index+1;i<event.size();i++)
+		    {
+		       if(event.time>calc_2dates_delta_in_min(event,calendar(i))){
+			remove_event(calendar(i));
+			i--; //return i to indicate the next event;
+		       }
+		       else
+			    break
+
+		    }
+		}
+	    }
+
+	 public int calc_2events_delta_in_min(Event event1,Event event2){//only for events with a chance to be חופפים
+
+		    long delta = event1.date.getTime()-event2.date.getTime();//ערך מוחלט???
+
+		    // return time difference in minutes.
+		    return(delta / (1000 * 60) % 60);
+	    }
+
 	
 	}
 
