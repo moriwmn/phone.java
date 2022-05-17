@@ -18,5 +18,10 @@ public class RegEvent extends Event {
 	public void setDescription(String setDes) {
 		this.description=setDes;
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString()+" \r\ncomment: "+this.getComment()+" \r\n";
+	}
 
 }
