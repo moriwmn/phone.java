@@ -23,5 +23,19 @@ public class MeetingEvent extends Event {
 	public String toString() {
 		return super.toString()+"\r\nwith contact: "+this.getContact().toString()+"\r\n";
 	}
+	@Override
+	public boolean equals(Object o) {
+		if(o==this) {
+			return true;
+		}
+		if(!(o instanceof MeetingEvent)) {
+			return false;
+		}
+		MeetingEvent e= (MeetingEvent) o;
+		
+		return this.getContact().equals(e.getContact())&& this.getDate().equals(e.getDate()) && this.getDuration()==e.getDuration();
+	}
+
+
 
 }
