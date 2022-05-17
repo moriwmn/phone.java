@@ -13,7 +13,7 @@ import java.util.Collections;
 public class Phone {
 	
 	private SmsApp sms;
-//	private MediaApp media;
+	private MediaApp media;
 	private CalendarApp calendar;
 	private PhoneBookApp phoneBook;
 	private static Scanner input; // create an object of Scanner
@@ -21,9 +21,9 @@ public class Phone {
 	public Phone()
 	{
 		this.sms= new SmsApp();
-//		this.media=new MediaApp();
+		this.media=new MediaApp();
 		this.calendar= new CalendarApp(); 
-//		this.phoneBook=new PhoneBookApp();
+		this.phoneBook=new PhoneBookApp();
 	}
 	
 	public void PhoneMenu() { 
@@ -43,13 +43,13 @@ public class Phone {
 			
 			switch (app) {
 			case 1: 
-				PhoneBookApp_handle();
+				phoneBook.menu();
 				break;
 			case 2:
-				SmsApp_handle();
+				SmsApp_nenu();
 				break; 
 			case 3:
-				CalendarApp_handle(); 
+				CalendarApp_menu(); 
 				break;
 			case 4: 
 				media.menu();
@@ -71,7 +71,7 @@ public class Phone {
 		//		   ............
 	}
 	
-	public void SmsApp_handle() {
+	public void SmsApp_nenu() {
 		this.sms.print_menu(); //TODO: decide if print is part of sub class App or phone.
 		int choice = input.nextInt();
 		switch (choice) {
@@ -116,13 +116,7 @@ public class Phone {
 		}
 	}
 	
-	public void PhoneBookApp_handle() {
-
-	}
-	public void MediaApp_handle() {
-		
-	}
-	public void CalendarApp_handle() {
+	public void CalendarApp_nenu() {
 		this.calendar.menu(); //TODO: decide if print is part of sub class App or phone.
 		int choice = input.nextInt();
 		switch (choice) {
