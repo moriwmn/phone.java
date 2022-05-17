@@ -197,7 +197,23 @@ public class CalendarApp {
 		    }
 		}
 	    }
-
+	public void show_events_of_the_day() {
+		Date chooseDate=Create_Date();
+		for(Event temp:calendar) {
+			if(IsSameDate(temp.GatDate(),chooseDate)) {
+		       if(temp instanceof RegEvent) {
+		    	   System.out.println(temp);
+		       }
+			}
+		}
+	}
+	public boolean IsSameDate(Date d1,Date d2) {
+		if((d1.getYear()==d2.getYear())&&(d1.getMonth()==d2.getMonth())&&(d1.getDay()==d2.getDay())) {
+			return true;
+		}
+		return false;
+	}
+		
 	 public int calc_2events_delta_in_min(Event event1,Event event2){//only for events with a chance to be חופפים
 
 		    long delta = event1.date.getTime()-event2.date.getTime();//ערך מוחלט???
