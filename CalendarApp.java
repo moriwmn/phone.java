@@ -25,17 +25,8 @@ public class CalendarApp {
 	
 	
 	public void add_meeting(string name) {
-		System.out.println("when is your event? pls enter the year:");
-		int year=input.nextLine();
-		System.out.println("pls enter the month:");
-		int month=input.nextLine();
-		System.out.println("pls enter the day:");
-		int day=input.nextLine();
-		System.out.println("pls enter the time of the meeting. in what hour?");
-		int hrs=input.nextLine()
-		System.out.println("how many minutes after"+ hour+ "?");
-		int min=input.nextLine()
-		if(CheckIsValidDate(year,month,day)) 
+		Date new_date=Create_Date();
+		if(CheckIsValidDate(new_date.getYear(),new_date.getMonth() ,new_date.getDay())
 		{
 			Date dateOfEvent= new Date(year,month,day,hrs,min);//create date object
 			System.out.println("for how long? (1-60 minutes)");
@@ -138,6 +129,19 @@ public class CalendarApp {
 	
 	public void collision_detection() {}
 	public void print_all_events() {}
+	public Date Create_Date() {
+		System.out.println("pls enter the year:");
+		int year=input.nextLine();
+		System.out.println("pls enter the month:");
+		int month=input.nextLine();
+		System.out.println("pls enter the day:");
+		int day=input.nextLine();
+		System.out.println("pls enter the time of the meeting. in what hour?");
+		int hrs=input.nextLine()
+		System.out.println("how many minutes after"+ hour+ "?");
+		int min=input.nextLine();
+		return new Date(year,month,day,hrs,min);
+	}
 	public boolean CheckIsValidDate(int year,int month,int day) 
 	{
 		Date date=new Date();
