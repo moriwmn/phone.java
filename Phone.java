@@ -131,17 +131,19 @@ public class Phone {
 				System.out.println("Who will attend the meeting?");
 				String name = get_and_validate_contact();//checking if the person is in the phonebook
 				if (name != "error") 
-					this.calendar.add_meeting(name);	
+					this.calendar.add_event(name);	
 				else
 					System.out.println("there is no such a contact in your phonebook"); //TODO return on error		
 			}
 			if (kindOfEv == "E" || kindOfEv == "e")
 			{
 				//AddEvent()
-				this.calendar.add_event();
-		
+				String name="no name";
+				this.calendar.add_event(name);
+
 		}
-		case 2: { //delete event
+		case 2: 
+		{ //delete event
 			System.out.println("Do you want to delete a meeting or event? please enter: M/E");
 			String kindOfEv = input.nextLine();
 			String dure;
@@ -150,14 +152,16 @@ public class Phone {
 				System.out.println("Who is the meeting member?");
 				String name = get_and_validate_contact();//checking if the person is in the phonebook
 				if (name != "error") 
-					this.calendar.remove_meeting(name);	
+					this.calendar.remove_event(name);	
 				else
 					System.out.println("there is no such a contact in your phonebook"); //TODO return on error		
 			}
-			if (kindOfEv == "E" || kindOfEv == "e")
-				this.calendar.remove_event();
-
+			if (kindOfEv == "E" || kindOfEv == "e") {
+				String name="no name";
+				this.calendar.remove_event(name);
+			}
 		}
+
 		case 3: { //print events of the day
 				this.calendar.show_events_of_the_day();
 			}	
