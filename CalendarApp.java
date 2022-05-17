@@ -222,6 +222,11 @@ public class CalendarApp {
 			}
 		}
 	}	
+	public void print_all_events() {
+		for(Event temp:calendar) {
+		    System.out.println(temp);
+		}	   
+	}
 	 public int calc_2events_delta_in_min(Event event1,Event event2){//only for events with a chance to be חופפים
 
 		    long delta = event1.date.getTime()-event2.date.getTime();//ערך מוחלט???
