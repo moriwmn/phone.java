@@ -1,11 +1,10 @@
 package ex2;
 
-import java.util.Scanner;
 import java.util.Date;
 
 public abstract class Event implements Comparable<Event>{
 	protected Date date;
-	protected int duration; // 1-60 minutes
+	protected long duration; // 1-60 minutes
 	protected int type;// 0 for meeting 1 for event
 	
 	public Event(Date date, int duration) 
@@ -22,7 +21,7 @@ public abstract class Event implements Comparable<Event>{
 		this.date=new Date(dateToSet.getTime());
 	}
 
-	public int getDuration() {
+	public long getDuration() {
 		return this.duration;
 	}
 	public void setDuration(int minuetes) {
@@ -30,13 +29,15 @@ public abstract class Event implements Comparable<Event>{
 	}
 	
 	@Override
-	public int compareTo(Event o) {
-		myDate=this.date;
-		otherDate=o.date;
+	public int compareTo(Event other) {
+		Date myDate=this.date;
+		Date otherDate=other.date;
 		return myDate.compareTo(otherDate);
 	}
-}
+
 @Override
 public String toString() {
-	return "\r\n"+date.toString()+"\r\nduration: " + min + " dur";
+	return "\r\n"+date.toString()+"\r\nduration: " + duration + " minutes";
 }
+
+}//class
