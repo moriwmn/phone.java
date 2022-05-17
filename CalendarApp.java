@@ -213,7 +213,15 @@ public class CalendarApp {
 		}
 		return false;
 	}
-		
+	public void print_meeting_with_contact(Contact contact) {
+		for(Event temp:calendar) {
+		       if(temp instanceof MeetingEvent) {
+		    	   if(((MeetingEvent)temp).getContact()==contact) {
+		    	   System.out.println(temp);
+		       }
+			}
+		}
+	}	
 	 public int calc_2events_delta_in_min(Event event1,Event event2){//only for events with a chance to be חופפים
 
 		    long delta = event1.date.getTime()-event2.date.getTime();//ערך מוחלט???
