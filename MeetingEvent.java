@@ -20,5 +20,9 @@ public class MeetingEvent extends Event {
 	public void setContact(String contact) {
 		this.contactName=contact;
 	}
+	@Override
+	public String toString() {
+		return super.toString()+"\r\nwith contact: "+this.getName().toString()+"\r\n";
+	}
 
 }
