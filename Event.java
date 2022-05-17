@@ -3,7 +3,7 @@ package ex2;
 import java.util.Scanner;
 import java.util.Date;
 
-public abstract class Event {
+public abstract class Event implements Comparable<Event>{
 	protected Date date;
 	protected int duration; // 1-60 minutes
 	protected int type;// 0 for meeting 1 for event
@@ -28,6 +28,15 @@ public abstract class Event {
 	public void setDuration(int minuetes) {
 		this.duration=minuetes;
 	}
-}
 	
-
+	@Override
+	public int compareTo(Event o) {
+		myDate=this.date;
+		otherDate=o.date;
+		return myDate.compareTo(otherDate);
+	}
+}
+@Override
+public String toString() {
+	return "\r\n"+date.toString()+"\r\nduration: " + min + " dur";
+}
