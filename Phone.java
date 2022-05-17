@@ -128,7 +128,6 @@ public class Phone {
 			if (kindOfEv == "M" || kindOfEv == "m")
 			{
 				//AddMeeting()
-				System.out.println("Who will attend the meeting?");
 				String name = get_and_validate_contact();//checking if the person is in the phonebook
 				if (name != "error") 
 					this.calendar.add_event(name);	
@@ -149,7 +148,6 @@ public class Phone {
 			String dure;
 			if (kindOfEv == "M" || kindOfEv == "m")
 			{
-				System.out.println("Who is the meeting member?");
 				String name = get_and_validate_contact();//checking if the person is in the phonebook
 				if (name != "error") 
 					this.calendar.remove_event(name);	
