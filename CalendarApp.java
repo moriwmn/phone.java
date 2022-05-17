@@ -23,96 +23,101 @@ public class CalendarApp {
     }
 	//methods:
 	
-	
-	public void add_meeting(string name) {
-		Date new_date=Create_Date();
-		if(CheckIsValidDate(new_date.getYear(),new_date.getMonth() ,new_date.getDay())
+	public void add_event(String name) {////// added
+		if(name.equals("no name"))
 		{
-			Date dateOfEvent= new Date(year,month,day,hrs,min);//create date object
-			System.out.println("for how long? (1-60 minutes)");
-			string duretion=input.nextLine();
-			if(duretion<1 || duretion > 60)
-				System.out.println("you are out of range");//TODO error massage
-			MeetingEvent new_event=new MeetingEvent(dateOfEvent,duretion, name)//MeetingEvent(Date date,int duration,String contact
-			this.calendar.add.new_event;/////////////////////
-		}
-		else
-			System.out.println("This date is not valid. pls enter a date that is in 30 days from today :)");//TODO: error massage			
-	}
-
-
-	public void add_event()
-	{
-		System.out.println("when is your event? pls enter the year:");
-		int year=input.nextLine();
-		System.out.println("pls enter the month:");
-		int month=input.nextLine();
-		System.out.println("pls enter the day:");
-		int day=input.nextLine();
-		System.out.println("pls enter the time of the meeting. in what hour?");
-		int hrs=input.nextLine()
-		System.out.println("how many minutes after"+ hour+ "?");
-		int min=input.nextLine()
-		if(CheckIsValidDate(year,month,day)) 
-		{
-			Date dateOfEvent= new Date(year,month,day,hrs,min);//create date object
-			System.out.println("for how long? (1-60 minutes)");
-			string duretion=input.nextLine();
-			if(duretion<1 || duretion > 60)
-				System.out.println("you are out of range");//TODO error massage
-			System.out.println("Add description");
-			string dsc=input.nextLine();
-			RegEvent new_event=new RegEvent(dateOfEvent,duretion, dsc)//MeetingEvent(Date date,int duration,String contact
-			this.calendar.add.new_event;/////////////////////
-		}
-		else
-			System.out.println("This date is not valid. pls enter a date that is in 30 days from today :)");//TODO: error massage			
-	}
-
-	public void remove_event(String name)
-	{
-		System.out.println("when is the event that you want to delete? pls enter the year:");
-		int year=input.nextLine();
-		System.out.println("pls enter the month:");
-		int month=input.nextLine();
-		System.out.println("pls enter the day:");
-		int day=input.nextLine();
-		System.out.println("pls enter the time of the meeting. in what hour?");
-		int hrs=input.nextLine()
-		System.out.println("how many minutes after"+ hour+ "?");
-		int min=input.nextLine()
-		if(CheckIsValidDate(year,month,day)) 
-		{
-			Date dateOfEvent= new Date(year,month,day,hrs,min);//create date object
-			System.out.println("what is the meeting longetion? (1-60 minutes)");
-			string duretion=input.nextLine();
-			if(duretion<1 || duretion > 60)
-				System.out.println("you are out of range");//TODO error massage
-			if(deleted_m(name, dateOfEvent, duretion))
-				System.out.println("Meeting deleted seccesfuly");
+			Date new_date=Create_Date();
+			if(CheckIsValidDate(new_date.getYear(),new_date.getMonth() ,new_date.getDay()) 
+			{
+				System.out.println("for how long? (1-60 minutes)");
+				string duretion=input.nextLine();
+				if(duretion<1 || duretion > 60)
+					System.out.println("you are out of range");//TODO error massage
+				System.out.println("Add description");
+				string dsc=input.nextLine();
+				RegEvent new_event=new RegEvent(new_date,duretion, dsc)//MeetingEvent(Date date,int duration,String contact
+				this.calendar.add.new_event;/////////////////////
+			}
 			else
-				System.out.println("error-cant delete meeting");//TODO error massage	
+				System.out.println("This date is not valid. pls enter a date that is in 30 days from today :)");//TODO: error massage			
+		}
+		else 
+		{
+			Date new_date=Create_Date();
+			if(CheckIsValidDate(new_date.getYear(),new_date.getMonth() ,new_date.getDay()) 
+			{
+				System.out.println("for how long? (1-60 minutes)");
+				string duretion=input.nextLine();
+				if(duretion<1 || duretion > 60)
+					System.out.println("you are out of range");//TODO error massage
+				MeetingEvent new_event=new MeetingEvent(dateOfEvent,duretion, name)//MeetingEvent(Date date,int duration,String contact
+				this.calendar.add.new_event;/////////////////////
+			}
+			else
+				System.out.println("This date is not valid. pls enter a date that is in 30 days from today :)");//TODO: error massage			
+		}
+	}
+		
+	public void remove_event(String name)//////////addedddd
+	{
+		if(name.equals("no name"))
+		{//regular event
+			System.out.println("when is the event that you want to delete?");
+			Date new_date=Create_Date();
+			if(CheckIsValidDate(new_date.getYear(),new_date.getMonth() ,new_date.getDay()) 
+			{
+				System.out.println("what is the meeting longetion? (1-60 minutes)");
+				string duretion=input.nextLine();
+				if(duretion<1 || duretion > 60)
+					System.out.println("you are out of range");//TODO error massage
+				System.out.println("what is the description of the event?");
+				string dsc=input.nextLine();
+				RegEvent new_event= new RegEvent(new_date,duretion,dsc)
+				if(deleted_e(new_event))
+					System.out.println("Event deleted seccesfuly");
+				else
+					System.out.println("error-cant delete meeting");//TODO error massage	
+			}
+			else
+				System.out.println("This date is not valid. pls enter a date that is in 30 days from today :)");//TODO: error massage			
 		}
 		else
-			System.out.println("This date is not valid. pls enter a date that is in 30 days from today :)");//TODO: error massage			
+		{//meeting
+			System.out.println("when is the event that you want to delete?");
+			Date new_date=Create_Date();
+			if(CheckIsValidDate(new_date.getYear(),new_date.getMonth() ,new_date.getDay()) 
+			{
+				System.out.println("what is the meeting longetion? (1-60 minutes)");
+				string duretion=input.nextLine();
+				if(duretion<1 || duretion > 60)
+					System.out.println("you are out of range");//TODO error massage
+				MeetingEvent new_event= new MeetingEvent(new_date,duretion,name)
+				if(deleted_e(new_event))
+					System.out.println("Meeting deleted seccesfuly");
+				else
+					System.out.println("error-can't delete meeting");//TODO error massage	
+			}
+			else
+				System.out.println("This date is not valid. pls enter a date that is in 30 days from today :)");//TODO: error massage	
+		}
 	}
 	
-	public boolean deleted_m(name, dateOfEvent, duretion) {
-		for(int i=i; i< this.calendar.lenght(); i++)
-			if(this.calendar(i).getDuration()==duretion)
-				if(this.calendar(i).getContact().equals(name))
-					//if()
-	
-	
-
-	}
-	public void remove_meeting(string name)
+	public boolean deleted_e(Event new_event) 
 	{
-		
-	}
-	
-	
-	
+		boolean flag=false;
+		Iterator<Event> iter=this.calendar.iterator();
+		while(iter.hasNext())
+		{
+			Event temp=iter.next();
+			if(temp.equals(new_event))
+			{
+				iter.remove();
+				flag=true;
+			}
+		}	
+		return flag;
+    	}
+
 	public void menu() {
 	System.out.println("********************Menu********************");
 	System.out.println("1. add event ");
