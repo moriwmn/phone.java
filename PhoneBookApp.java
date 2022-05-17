@@ -53,11 +53,26 @@ public class PhoneBookApp {
 	public void add_contact() { //1
 		System.out.println("Please enter contact name");
 		String name = input.nextLine();
-
+		
+		//check if there is a contact with that name:
+		for (int i = 0; i <contacts.size(); i++)
+		{
+            if(contacts.get(i).get_name().equals(name))
+            {
+            	System.out.println("msg error"); //TODO: msg error (exist contact w/the same name)
+            	return; //return w/o adding the contact
+            }
+		}
+		
 		System.out.println("Enter phone number");
 		String num = input.nextLine();
+		if (numIsValid(num)) {
 		Contact ContactNew = new Contact(name, num); //create a new contact
 		contacts.add(ContactNew);
+		}
+		else {
+			System.out.println("The number you entered is invalid. number should include 9-10 digits (exept of energancy numbers");
+		}
 	}
 	
 	public void remove_contact() { //2
@@ -202,6 +217,15 @@ public class PhoneBookApp {
 		return false;
 	}
 	
+	public boolean numIsValid(String number) {
+		//valid nubber is number with 9/10 digits, or an emergency number
+		if(number == "100" | number == "101" number == "102")
+			return true;
+		if(number.size()==9 || number.size()==10 )
+			return true;
+		return false;
+	}
+	
 	
 	public void add_contact_ahead(String  add_name, String add_num) { 
 	//another function to add some contact ahead for debug and check :)
@@ -212,68 +236,53 @@ public class PhoneBookApp {
 	//******************
 	//main:
 	
-	public static void Main(String[] args) {
+	public static void menu() {
 	
 	input = new Scanner(System.in); 
-	PhoneBookApp MyPhoneBook = new PhoneBookApp();
-	
-	//add some contacts, as requested:
-	MyPhoneBook.add_contact_ahead("Shira", "0542473833");
-	MyPhoneBook.add_contact_ahead("Noa", "0508231942");
-	MyPhoneBook.add_contact_ahead("Moriya", "0584913000");
-
-	
-	//infinite loop until the user choose 0 for exit
-	int ret=1;
-	while(ret != 0)
-	{
-		print_menu();
-		int choice = input.nextInt();
-		input.nextLine();
-		switch(choice) {
-		case 1: 
-			MyPhoneBook.add_contact();
-			break;
-		case 2: 
-			MyPhoneBook.remove_contact();
-			break;
-		case 3: 
-			MyPhoneBook.print_book();
-			break;
-		case 4: 
-			MyPhoneBook.find_contact(); 
-			break;
-		case 5: 
-			MyPhoneBook.sort_by_name(); 
-			break;
-		case 6: 
-			MyPhoneBook.sort_by_number();
-			break;
-		case 7: 
-			MyPhoneBook.remove_duplicate();
-			break;
-		case 8: 
-			MyPhoneBook.invert_order();
-			break;
-		case 9: 
-			MyPhoneBook.save_in_file();
-			break;
-		case 10: 
-			MyPhoneBook.import_from_file();
-			break;
-		case 11:
-			System.out.println("Have a good day :)");
-			ret = 0; //end of loop :)
-			break;
-		default:
-			System.out.println("Invalid number, try again");
 		
-		}//switch
-	}//while
+	print_menu();
+	int choice = input.nextInt();
+	input.nextLine();
+	switch(choice) {
+	case 1: 
+		MyPhoneBook.add_contact();
+		break;
+	case 2: 
+		MyPhoneBook.remove_contact();
+		break;
+	case 3: 
+		MyPhoneBook.print_book();
+		break;
+	case 4: 
+		MyPhoneBook.find_contact(); 
+		break;
+	case 5: 
+		MyPhoneBook.sort_by_name(); 
+		break;
+	case 6: 
+		MyPhoneBook.sort_by_number();
+		break;
+	case 7: 
+		MyPhoneBook.remove_duplicate();
+		break;
+	case 8: 
+		MyPhoneBook.invert_order();
+		break;
+	case 9: 
+		MyPhoneBook.save_in_file();
+		break;
+	case 10: 
+		MyPhoneBook.import_from_file();
+		break;
+	case 11:
+		System.out.println("exit Phone Book");
+		break;
+	default:
+		System.out.println("Invalid number");
+	
+	}//switch
 	input.close(); 
 
-	}//main
-	
-	
+	}	
 	
 } //class
