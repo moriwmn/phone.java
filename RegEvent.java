@@ -23,5 +23,18 @@ public class RegEvent extends Event {
 	public String toString() {
 		return super.toString()+" \r\ncomment: "+this.getComment()+" \r\n";
 	}
+	@Override
+	public boolean equals(Object o) {
+		if(o==this)
+		{
+			return true;
+		}
+		if(!(o instanceof RegEvent))
+		{
+			return false;
+		}
+		RegEvent r=(RegEvent) o;
+		return this.getDescription().equals(r.getDescription())&&this.getDate().equals(r.getDate())&& this.getDuration()==r.getDuration();
+	}
 
 }
