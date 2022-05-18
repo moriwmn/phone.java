@@ -142,8 +142,7 @@ public class Phone {
 					String name = get_and_validate_contact();//checking if the person is in the phonebook
 					if (name != "error") 
 						this.calendar.add_event(name);	
-					else
-						System.out.println("there is no such a contact in your phonebook"); //TODO return on error		
+		
 				}
 				if (kindOfEv.equals("E") || kindOfEv.equals("e"))
 				{
