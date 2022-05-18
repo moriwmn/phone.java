@@ -285,32 +285,27 @@ public class CalendarApp {
 	}
 		  
 	public void remove_overlape_meetings(){
-		System.out.println("in remove func"); //debugggggg
 		Collections.sort(calendar);
-		System.out.println("after sort"); //debugggggg
-		Iterator<Event> c_Iterator = calendar.iterator();
-		System.out.println("after define iterator"); //debugggggg
-		while(c_Iterator.hasNext()) {
-			System.out.println("in while 1"); //debugggggg
-			Event this_event = c_Iterator.next();
-			System.out.println("Event this_event = c_Iterator.next()"); //debugggggg
-			while(true) {
-				System.out.println("in while 2");
-				Event next_event = c_Iterator.next();
+		if(calendar.isEmpty())
+			return;
+		for (int i=0 ; i<calendar.size();i++)
+		{
+			Event this_event = calendar.get(i);
+			for (int j=i+1 ; j<calendar.size();j++) {
+				Event next_event = calendar.get(j);
 				if (this_event.getDuration() > calc_2dates_delta_in_min(this_event,next_event)) {
-					c_Iterator.remove();
+					calendar.remove(j);
+					j--;
 				}
 				else
 					break;
 			}
 		}
-			
 	}
-
-private long calc_2dates_delta_in_min(Event event1, Event event2) {
-		long delta = event1.date.getTime()-event2.date.getTime();//
-		// return time difference in minutes.
-		return (delta / (1000 * 60) % 60);
+		
+	private long calc_2dates_delta_in_min(Event event1, Event event2) {
+		long delta = event2.date.getTime()-event1.date.getTime();//
+		return delta;
 	}
 	
 	public boolean dayIsValid(int month,int day) {
