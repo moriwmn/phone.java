@@ -17,7 +17,6 @@ public class Phone {
 	private MediaApp media;
 	private CalendarApp calendar;
 	private PhoneBookApp phoneBook;
-	private String noa;
 	private static Scanner input = new Scanner(System.in); // create an object of Scanner
 	
 	public Phone()
