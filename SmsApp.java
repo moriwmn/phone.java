@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class SmsApp {
 
 	private ArrayList<Chat> chats; 
-	private static Scanner input; // create an object of Scanner
+	private static Scanner input= new Scanner(System.in);; // create an object of Scanner
 	
 
 	
@@ -14,7 +14,10 @@ public class SmsApp {
 		public SmsApp() {
 		this.chats = new ArrayList<Chat>();
 	}
-		
+	public ArrayList<Chat> getChats()
+	{
+		return this.chats;
+	}
 	//methods:
 	
 	public void add_massage(String name) {
@@ -23,11 +26,11 @@ public class SmsApp {
 		String choice = input.nextLine();
 		System.out.println("Type your massage: ");
 		String new_massage = input.nextLine();
-		if (choice == "r" || choice == "R")
+		if (choice.equals("r") || choice.equals("R"))
 		{
 			new_massage = name + ": " + new_massage;
 		}
-		if (choice == "s" || choice == "S")
+		if (choice.equals("s") || choice.equals("S"))
 		{
 			new_massage = "you: " + new_massage;
 		}
@@ -50,7 +53,7 @@ public class SmsApp {
 	
 	public int find_chat_by_name(String name) {
 		for(int i=0 ; i<this.chats.size() ; i++) {
-			if (chats.get(i).getName() == name)
+			if (chats.get(i).getName().equals(name))
 				return i;
 		}
 		return -1; //chat w/"name" does'nt exist.
@@ -58,18 +61,30 @@ public class SmsApp {
 	
 	public void delete_chat(String name) {
 		int index = find_chat_by_name(name);
-		if (index != -1)
+		if (index != -1) {
 			this.chats.remove(index);
+			return;
+		}
 		else
 			System.out.println("can not delete chat with " + name + ". chat does not exist.");
 	}
 	
 	public void print_chat(String name) {
 		int index = find_chat_by_name(name);
+		if (index== -1)
+		{
+			System.out.println("there is no chat with " +name);
+			return;
+		}
 		this.chats.get(index).print_chat();
 	}
 	
 	public void print_all_chats() {
+		if(this.chats.isEmpty())
+		{
+			System.out.println("there are no chats to print");
+			return;
+		}
 		for (Chat chat : chats)
 			chat.print_chat();
 	}
@@ -77,7 +92,7 @@ public class SmsApp {
 	public void find_phrase(String phrase) {
 		for (Chat chat : chats) {
 			if(chat.isContain(phrase))
-				System.out.println("something about name has this phrase"); //TODO: fix the massage
+				System.out.println("The phrase- "+phrase+" appear in the chat with "+chat.getName()); //TODO: fix the massage
 		}
 	}
 	

@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 
 
 
@@ -16,6 +17,7 @@ public class Phone {
 	private MediaApp media;
 	private CalendarApp calendar;
 	private PhoneBookApp phoneBook;
+	private String noa;
 	private static Scanner input = new Scanner(System.in); // create an object of Scanner
 	
 	public Phone()
@@ -27,6 +29,7 @@ public class Phone {
 	}
 	
 	public void PhoneMenu() { 
+		this.phoneBook.add_contact_ahead("noa", "0529598264");
 		//Scanner input = new Scanner(System.in);
 		//input.nextLine();
 		int exit = 0;
@@ -45,6 +48,7 @@ public class Phone {
 			switch (app) {
 			case 1: 
 				phoneBook.menu();
+				refresh_chats();////////////////////////////
 				break;
 			case 2:
 				SmsApp_menu();
@@ -60,16 +64,16 @@ public class Phone {
 				break;
 			default: System.out.println("Not valid choice!"); break;
 			}
+			
 		}
 		input.close();
 	}
 	
 	public void SmsApp_menu() {
-		this.sms.print_menu(); //TODO: decide if print is part of sub class App or phone.
-		int choice = Integer.parseInt(input.nextLine());
-		//input.nextLine();
 		int exit = 0;
 		while (exit == 0) {
+			this.sms.print_menu(); //TODO: decide if print is part of sub class App or phone.
+			int choice = Integer.parseInt(input.nextLine());
 			switch (choice) {
 			case 1: { //add chat
 				String name = get_and_validate_contact();
@@ -77,7 +81,7 @@ public class Phone {
 					this.sms.add_massage(name);
 				}	
 				else
-					System.out.println(""); //return on error
+					System.out.println("availble for contacts only."); //return on error
 				break;
 			}
 			case 2: { //delete chat 
@@ -95,7 +99,9 @@ public class Phone {
 					this.sms.print_chat(name);
 				}	
 				else
-					System.out.println(""); //return on error
+				{ //return on error
+					this.sms.delete_chat(name);
+				}
 				break;
 			}
 			case 4: { //search for phrase
@@ -206,9 +212,27 @@ public class Phone {
 		String name = input.nextLine();
 		if(this.phoneBook.contatIsExist(name))
 			return name;
-		System.out.println("error msg"); //TODO: add error massage
+		System.out.println("There is no such a name in the phonebook"); //TODO: add error massage
 		return "error";
 	}
 	
+	public void refresh_chats()//////////////////
+	{
+		boolean flag=false;
+		Iterator<Chat> iter=this.sms.getChats().iterator();
+		while(iter.hasNext())
+		{
+			Chat temp=iter.next();
+			if(!this.phoneBook.contatIsExist(temp.getName()))
+			{
+				iter.remove();
+			}
+		}
+	}
+			
+
 
 }
+	
+
+

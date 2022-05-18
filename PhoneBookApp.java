@@ -212,7 +212,7 @@ public class PhoneBookApp {
 		for (int i = 0; i <contacts.size(); i++)
 		{
             if(contacts.get(i).get_name().equals(name))
-            	return false;
+            	return true;
 		}  
 		return false;
 	}
@@ -236,10 +236,10 @@ public class PhoneBookApp {
 	{
 		Scanner input = new Scanner(System.in);
 		//Scanner input = new Scanner(System.in); 	
-		print_menu();
-		int choice = Integer.parseInt(input.nextLine());
 		int exit = 0;
 		while (exit == 0) {
+			print_menu();
+			int choice = Integer.parseInt(input.nextLine());
 			switch(choice) {
 			case 1: 
 				this.add_contact();

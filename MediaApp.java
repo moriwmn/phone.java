@@ -50,11 +50,16 @@ public void menu() {
 //	input.close();
 }
 public void AddMedia() {
-	System.out.println("please choose type of media- song or video");
+	input.nextLine();
+	System.out.println("please choose type of media- song or video.");
 	String type = input.nextLine();
-	System.out.println("please enter name of "+type);
+	if(!(type.equals("Song") || type.equals("song") ||type.equals("Video") || type.equals("video"))) {
+		System.out.println("This is not a type of media that exist in the app :)");
+		return;
+	}
+	System.out.println("please enter name of the "+type);
 	String name=input.nextLine();
-	System.out.println("please enter the length of "+type);
+	System.out.println("please enter the length of "+type+ " (minutes)");
 	double length=input.nextDouble();
 	Media newMedia=new Media(type,name,length);
 	mediaList.add(newMedia);
@@ -63,11 +68,12 @@ public void AddMedia() {
 public void PlayMediaByName() {
 	System.out.println("What is the name of song or video do you want to play?");
 	String name = input.nextLine();
+	name = input.nextLine();
 	boolean exist=false;
 	for (int i = 0; i <mediaList.size(); i++)
 	{
         if(mediaList.get(i).GetName().equals(name)) {
-        	System.out.println("the "+mediaList.get(i).GetType()+" "+mediaList.get(i).GetName()+" is now playing for  "+mediaList.get(i).GetLength() +" time");
+        	System.out.println("the "+mediaList.get(i).GetType()+" "+mediaList.get(i).GetName()+" is now playing for "+mediaList.get(i).GetLength() +"minutes");
         	exist=true;
         	break;
         }
@@ -80,7 +86,7 @@ public void PlayMediaByName() {
 public void PlayAll() {
 	for (int i = 0; i <mediaList.size(); i++)
 	{
-		System.out.println("the "+mediaList.get(i).GetType()+" "+mediaList.get(i).GetName()+" is now playing for  "+mediaList.get(i).GetLength() +" time");
+		System.out.println("the "+mediaList.get(i).GetType()+" "+mediaList.get(i).GetName()+" is now playing for "+mediaList.get(i).GetLength() +" minutes");
 	}	
 }
 
