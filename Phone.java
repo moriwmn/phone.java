@@ -47,7 +47,8 @@ public class Phone {
 			case 1: {
 				phoneBook.menu();
 				refresh_chats();
-				break;}
+				break;
+			}
 			case 2:
 				SmsApp_menu();
 				break; 
@@ -74,13 +75,14 @@ public class Phone {
 			switch (choice) {
 			case 1: { //add chat
 				String name = get_and_validate_contact();
-				if (name != "error") {
+				if (name != "error") 
+				{
 					this.sms.add_massage(name);
 				}	
 				else
 					System.out.println("availble for contacts only."); //return on error
 				break;
-			}
+			}//case1
 			case 2: { //delete chat 
 				String name = get_and_validate_contact();
 				if (name != "error") {
@@ -89,7 +91,7 @@ public class Phone {
 				else
 					System.out.println(""); //return on error
 				break;
-			}
+			}//case2
 			case 3: { //print chat w/contact
 				String name = get_and_validate_contact();
 				if (name != "error") {
@@ -100,28 +102,28 @@ public class Phone {
 					this.sms.delete_chat(name);
 				}
 				break;
-			}
+			}//case3
 			case 4: { //search for phrase
 				System.out.println("which phrase you want to search? ");
 				String phrase= input.nextLine();
 				this.sms.find_phrase(phrase);
 				break;
-			}
+			}//case4
 			case 5: { // print all chats
 				this.sms.print_all_chats();
 				break;
-			}
+			}//case5
 			case 6: { 
 				exit++;
 				break;
-			}
+			}//case6
 	
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + choice);
 			
-		}
-	}
-}
+		}//switch
+	}//while
+}//smsappMenu
 	
 	public void CalendarApp_menu() {
 		int exit = 0;
