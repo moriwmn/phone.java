@@ -16,7 +16,7 @@ public class CalendarApp {
 	//ArrayList<LinkedList<String>> array = new ArrayList<LinkedList<String>>(size);
 	//array = new ArrayList<LinkedList<String>>(size);
 	//array[index].add(value); - inserting
-	private static Scanner input; // create an object of Scanner
+	private static Scanner input = new Scanner(System.in);  // create an object of Scanner
 	
 	//constructor:
 	public CalendarApp() {
@@ -29,13 +29,17 @@ public class CalendarApp {
 		{
 			NewDate new_date=Create_Date();
 			if(CheckIsValidDate(new_date.getYear(),new_date.getMonth() ,new_date.getDay()))
-			{
+			{	int duretion;
+				while(true) {
 				System.out.println("for how long? (1-60 minutes)");
-				int duretion=Integer.parseInt(input.nextLine());
-				if(duretion<1 || duretion > 60)
-					System.out.println("you are out of range");//TODO error massage
-				System.out.println("Add description");
+				duretion=input.nextInt();
+				if(duretion >0 && duretion <= 60)
+					break;
+				System.out.println("you are out of range. please try again");//TODO error massage
+				}
+				System.out.println("Add meeting description");
 				String dsc=input.nextLine();
+				dsc = input.nextLine();
 				RegEvent new_event=new RegEvent(new_date,duretion, dsc);//MeetingEvent(Date date,int duration,String contact
 				this.calendar.add(new_event);/////////////////////
 			}
@@ -155,6 +159,7 @@ public class CalendarApp {
 		}
 	}	
 	public void print_all_events() {
+		Collections.sort(calendar); //sort calendar before printing
 		for(Event temp:calendar) {
 		    System.out.println(temp);
 		}	   
@@ -163,16 +168,43 @@ public class CalendarApp {
 
 	
 	public NewDate Create_Date() {
-		System.out.println("pls enter the year:");
-		int year=Integer.parseInt(input.nextLine());
-		System.out.println("pls enter the month:");
-		int month=Integer.parseInt(input.nextLine());
-		System.out.println("pls enter the day:");
-		int day=Integer.parseInt(input.nextLine());
-		System.out.println("pls enter the time of the meeting. in what hour?");
-		int hrs=Integer.parseInt(input.nextLine());
-		System.out.println("how many minutes after"+ hrs+ "?");
-		int min=Integer.parseInt(input.nextLine());
+		int year,month,day,hrs,min;
+		//get details and validate:
+		while(true) {
+		System.out.println("please enter the year:");
+		year=input.nextInt();
+		if(year>2000)
+			break;
+		System.out.println("invalid choice, please try again");
+		}
+		while(true) {
+		System.out.println("please enter the month:");
+		month=input.nextInt();
+		if(month>0 && month<13)
+			break;
+		System.out.println("invalid choice, please try again");
+		}
+		while (true) {
+		System.out.println("please enter the day:");
+		day=input.nextInt();
+		if (dayIsValid(month,day))
+			break;
+		System.out.println("invalid choice, please try again");
+		}
+		while (true) {
+		System.out.println("please enter the time of the meeting. in what hour?");
+		hrs=input.nextInt();
+		if(hrs>-1 && hrs<24)
+			break;
+		System.out.println("invalid choice, please try again");
+		}
+		while (true) {
+		System.out.println("how many minutes after "+ hrs+ "?");
+		min=input.nextInt();
+		if(min>-1 && min <60)
+			break;
+		System.out.println("invalid choice, please try again");
+		}
 		return new NewDate(year,month,day,hrs,min);
 	}
 	public boolean CheckIsValidDate(int year,int month,int day) 
@@ -217,11 +249,17 @@ public class CalendarApp {
 	}
 		  
 	public void remove_overlape_meetings(){
-		calendar.sort(null);
+		System.out.println("in remove func"); //debugggggg
+		Collections.sort(calendar);
+		System.out.println("after sort"); //debugggggg
 		Iterator<Event> c_Iterator = calendar.iterator();
+		System.out.println("after define iterator"); //debugggggg
 		while(c_Iterator.hasNext()) {
+			System.out.println("in while 1"); //debugggggg
 			Event this_event = c_Iterator.next();
+			System.out.println("Event this_event = c_Iterator.next()"); //debugggggg
 			while(true) {
+				System.out.println("in while 2");
 				Event next_event = c_Iterator.next();
 				if (this_event.getDuration() > calc_2dates_delta_in_min(this_event,next_event)) {
 					c_Iterator.remove();
@@ -231,7 +269,6 @@ public class CalendarApp {
 			}
 		}
 			
-		
 	}
 
 private long calc_2dates_delta_in_min(Event event1, Event event2) {
@@ -240,5 +277,37 @@ private long calc_2dates_delta_in_min(Event event1, Event event2) {
 		return (delta / (1000 * 60) % 60);
 	}
 	
+	public boolean dayIsValid(int month,int day) {
+		 if ((day < 1) || (day > 31)) return false;
+	        switch (month) {
+	            case 1: return true;
+	            case 2: return (day < 30);
+	            case 3: return true;
+	            case 4: return day < 31;
+	            case 5: return true;
+	            case 6: return day < 31;
+	            case 7: return true;
+	            case 8: return true;
+	            case 9: return day < 31;
+	            case 10: return true;
+	            case 11: return day < 31;
+	            default: return true;
+	        }
+	}
+	
+	public void add_some_events_ahead() { //for debug only
+		NewDate new_date= new NewDate(2022,5,19,10,0);
+		RegEvent new_event=new RegEvent(new_date,60, "meeting1");
+		this.calendar.add(new_event);
+		NewDate new_date1= new NewDate(2022,5,19,10,30);
+		RegEvent new_event1=new RegEvent(new_date1,10, "meeting2");
+		this.calendar.add(new_event1);
+		NewDate new_date2= new NewDate(2022,5,19,11,0);
+		RegEvent new_event2=new RegEvent(new_date2,10, "meeting");
+		this.calendar.add(new_event2);
+		NewDate new_date3= new NewDate(2022,5,19,12,0);
+		RegEvent new_event3=new RegEvent(new_date3,10, "meeting");
+		this.calendar.add(new_event3);
+	}
 	}
 
