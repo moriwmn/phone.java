@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.Iterator;
 
 
-
 public class Phone {
 	
 	private SmsApp sms;
@@ -28,7 +27,7 @@ public class Phone {
 	}
 	
 	public void PhoneMenu() { 
-		this.phoneBook.add_contact_ahead("noa", "0529598264");
+		calendar.add_some_events_ahead(); //debug 
 		//Scanner input = new Scanner(System.in);
 		//input.nextLine();
 		int exit = 0;
@@ -45,11 +44,10 @@ public class Phone {
 			//input.nextLine();
 			
 			switch (app) {
-			case 1:{
+			case 1: {
 				phoneBook.menu();
 				refresh_chats();
-				break;
-			}
+				break;}
 			case 2:
 				SmsApp_menu();
 				break; 
@@ -64,7 +62,6 @@ public class Phone {
 				break;
 			default: System.out.println("Not valid choice!"); break;
 			}
-			
 		}
 		input.close();
 	}
@@ -125,18 +122,19 @@ public class Phone {
 		}
 	}
 }
+	
 	public void CalendarApp_menu() {
-		this.calendar.menu(); //TODO: decide if print is part of sub class App or phone.
-		int choice = Integer.parseInt(input.nextLine());
 		int exit = 0;
 		while (exit == 0) {
+			this.calendar.menu(); //TODO: decide if print is part of sub class App or phone.
+			int choice = Integer.parseInt(input.nextLine());
 			switch (choice) {
 			case 1:
 			{ //add event
 				System.out.println("Do you want to create a meeting or event? please enter: M/E");
 				String kindOfEv = input.nextLine();
 				String dure;
-				if (kindOfEv == "M" || kindOfEv == "m")
+				if (kindOfEv.equals("M") || kindOfEv.equals("m"))
 				{
 					//AddMeeting()
 					String name = get_and_validate_contact();//checking if the person is in the phonebook
@@ -145,10 +143,9 @@ public class Phone {
 					else
 						System.out.println("there is no such a contact in your phonebook"); //TODO return on error		
 				}
-				if (kindOfEv == "E" || kindOfEv == "e")
+				if (kindOfEv.equals("E") || kindOfEv.equals("e"))
 				{
-					String name="no name";
-					this.calendar.add_event(name);
+					this.calendar.add_event("no name");
 				}
 				break;
 			}
@@ -157,7 +154,7 @@ public class Phone {
 				System.out.println("Do you want to delete a meeting or event? please enter: M/E");
 				String kindOfEv = input.nextLine();
 				String dure;
-				if (kindOfEv == "M" || kindOfEv == "m")
+				if (kindOfEv.equals("M") || kindOfEv.equals("m"))
 				{
 					String name = get_and_validate_contact();//checking if the person is in the phonebook
 					if (name != "error") 
@@ -165,7 +162,7 @@ public class Phone {
 					else
 						System.out.println("there is no such a contact in your phonebook"); //TODO return on error		
 				}
-				if (kindOfEv == "E" || kindOfEv == "e") {
+				if (kindOfEv.equals("E") || kindOfEv.equals("e")) {
 					String name="no name";
 					this.calendar.remove_event(name);
 				}
@@ -189,11 +186,11 @@ public class Phone {
 				break;
 			}
 			case 6: { //.print all events and meetings
-				this.calendar.show_events_of_the_day();
+				this.calendar.print_all_events();
 				break;
 			}
 			case 7: { 
-				exit++;	
+				exit=1;	
 				break;
 			}
 			default:
@@ -228,11 +225,7 @@ public class Phone {
 				iter.remove();
 			}
 		}
-	}
-			
 
+	}
 
 }
-	
-
-
