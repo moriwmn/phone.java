@@ -59,7 +59,7 @@ public class PhoneBookApp {
 		{
             if(contacts.get(i).get_name().equals(name))
             {
-            	System.out.println("msg error"); //TODO: msg error (exist contact w/the same name)
+            	System.out.println("error-exit contact with the same name"); 
             	return; //return w/o adding the contact
             }
 		}
@@ -71,7 +71,7 @@ public class PhoneBookApp {
 		contacts.add(ContactNew);
 		}
 		else {
-			System.out.println("The number you entered is invalid. number should include 9-10 digits (exept of energancy numbers");
+			System.out.println("The number you entered is invalid. number should include 9-10 digits (exept of energancy numbers)");
 		}
 	}
 	
@@ -84,6 +84,7 @@ public class PhoneBookApp {
 			if(contact_name.equals(name))
 			{
 				contacts.remove(i);
+				System.out.println("the contact- "+contact_name+"  removed succesfully");
 				break;
 			}
 			i++;
@@ -118,10 +119,12 @@ public class PhoneBookApp {
 	
 	public void sort_by_name() { //5
 		Collections.sort(contacts, Contact.ContNameComparator);
+		System.out.println("sort successfully!");
 	}
 	
 	public void sort_by_number() { //6
 		Collections.sort(contacts, Contact.ContNumberComparator );
+		System.out.println("sort successfully!");
 	}
 	
 	public void remove_duplicate() { //7
@@ -219,7 +222,7 @@ public class PhoneBookApp {
 	
 	public boolean numIsValid(String number) {
 		//valid number is number with 9/10 digits, or an emergency number
-		if(number == "100" || number == "101"|| number == "102")
+		if(number.equals("100") || number.equals("101") || number.equals("102"))
 			return true;
 		if(number.length()==9 || number.length()==10 )
 			return true;
