@@ -7,6 +7,7 @@ public class Test {
 		// TODO Auto-generated method stub
 		Phone myphone = new Phone();
 		myphone.PhoneMenu();
+		System.out.println("GoodBay");
 	
 	}
 

@@ -15,7 +15,7 @@ public class PhoneBookApp {
 	
 	private ArrayList<Contact> contacts;
 	
-	private static Scanner input; // create an object of Scanner
+	private static Scanner input= new Scanner(System.in); // create an object of Scanner
 
 	//constructor:
 	public PhoneBookApp() { 
@@ -234,9 +234,8 @@ public class PhoneBookApp {
 	
 	public void menu() 
 	{
-	
-		input = new Scanner(System.in); 
-			
+		Scanner input = new Scanner(System.in);
+		//Scanner input = new Scanner(System.in); 	
 		print_menu();
 		int choice = Integer.parseInt(input.nextLine());
 		int exit = 0;
@@ -277,11 +276,9 @@ public class PhoneBookApp {
 				break;
 			default:
 				System.out.println("Invalid number");
-			
 			}//switch
 		}//while
-		input.close(); 
-
+		//input.close(); 
 	}	
 	
 } //class

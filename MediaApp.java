@@ -47,7 +47,7 @@ public void menu() {
 		case 4:exit++; break; 
 		}
 	}
-	input.close();
+//	input.close();
 }
 public void AddMedia() {
 	System.out.println("please choose type of media- song or video");
