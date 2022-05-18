@@ -14,11 +14,15 @@ public class NewDate extends Date {
 	private int year;
 	
 	public NewDate() {
-		super();
+		
 	}
 
 	public NewDate(long date) {
-		super(date);
+		this.year = date.getYear();
+		this.month = date.getMonth();
+		this.day = date.getDay();
+		this.hour = date.getHour();
+		this.minute = date.getMinute();
 	}
 	
 	public NewDate(int year, int month, int day, int hour, int minute) {
