@@ -28,7 +28,7 @@ public class Phone {
 	}
 	
 	public void PhoneMenu() { 
-		//this.phoneBook.add_contact_ahead("noa", "0529598264");
+		this.phoneBook.add_contact_ahead("noa", "0529598264");
 		//Scanner input = new Scanner(System.in);
 		//input.nextLine();
 		int exit = 0;
@@ -45,10 +45,11 @@ public class Phone {
 			//input.nextLine();
 			
 			switch (app) {
-			case 1: 
+			case 1:{
 				phoneBook.menu();
-				refresh_chats();////////////////////////////
+				refresh_chats();
 				break;
+			}
 			case 2:
 				SmsApp_menu();
 				break; 
