@@ -94,9 +94,53 @@ public class NewDate extends Date {
 		return ("date is "+this.getYear()+" / "+this.month+ " / "+this.day+" in time- "+this.hour+" : "+this.minute);
 	}	
 	
-	
-	
-	
-	
+	@Override
+	public long getTime() {
+		//return time from January 1 2000 in minutes
+		long time=0;
+		time+=((this.getYear()-2000)*365*24*60);;
+		time+=(this.getDay()*24*60);
+		time+=(this.getHour()*60*60);
+		time+=this.getMinute();
+		int month = this.getMonth();
+		switch (month) {
+        case 1: 
+        	break;
+        case 2: 
+        	time+=31*24*30;
+        	break;
+        case 3:
+        	time+=(31+29)*24*30;
+        	break;
+        case 4: 
+        	time+=(31*2+29)*24*30;
+        	break;
+        case 5: 
+        	time+=(31*2+29+30)*24*30;
+        	break;
+        case 6: 
+        	time+=(31*3+29+30)*24*30;
+        	break;
+        case 7: 
+        	time+=(31*3+29+30*2)*24*30;
+        	break;
+        case 8: 
+        	time+=(31*4+29+30*2)*24*30;
+        	break;
+        case 9: 
+        	time+=(31*5+29+30*2)*24*30;
+        	break;
+        case 10: 
+        	time+=(31*5+29+30*3)*24*30;
+        	break;
+        case 11:
+        	time+=(31*6+29+30*3)*24*30;
+        	break;
+        case 12:
+        	time+=(31*6+29+30*4)*24*30;
+        default: 
+   	 }
 
+		return time;
+	}	
 }
