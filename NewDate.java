@@ -11,8 +11,8 @@ public class NewDate extends Date {
 	private int day;
 	private int hour;
 	private int minute;
-	
 	private int year;
+	
 	public NewDate() {
 		super();
 	}
@@ -22,7 +22,7 @@ public class NewDate extends Date {
 	}
 	
 	public NewDate(int year, int month, int day, int hour, int minute) {
-		super();
+		//super();
 		this.year = year;
 		this.month = month;
 		this.day = day;
@@ -31,7 +31,7 @@ public class NewDate extends Date {
 	}
 	
 	public NewDate(int year, int month, int day) {
-		super();
+		//super();
 		this.year = year;
 		this.month = month;
 		this.day = day;
@@ -83,7 +83,7 @@ public class NewDate extends Date {
 
 	@Override
 	public String toString() {
-		return super.toString();
+		return ("date is "+this.getYear()+" / "+this.month+ " / "+this.day+" in time- "+this.hour+" : "+this.minute);
 	}
 	
 	
