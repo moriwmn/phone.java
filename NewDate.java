@@ -17,7 +17,7 @@ public class NewDate extends Date {
 		
 	}
 
-	public NewDate(long date) {
+	public NewDate(NewDate date) {
 		this.year = date.getYear();
 		this.month = date.getMonth();
 		this.day = date.getDay();
