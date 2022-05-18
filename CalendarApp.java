@@ -134,13 +134,19 @@ public class CalendarApp {
 	}
 	
 	public void show_events_of_the_day() {
+		boolean flag=false;
 		NewDate chooseDate= Create_Date_without_time() ;
 		for(Event temp:calendar) {
 			if(IsSameDate(temp.getDate(),chooseDate)) {
-		       if(temp instanceof RegEvent) 
+		       if(temp instanceof RegEvent)
+		       {
 		    	   System.out.println(temp);
+		    	   flag=true;
+		       }
 			}
 		}
+		if(flag==false)
+			System.out.println("no events to show");
 	}
 	public boolean IsSameDate(NewDate d1,NewDate d2) {
 		if((d1.getYear()==d2.getYear())&&(d1.getMonth()==d2.getMonth())&&(d1.getDay()==d2.getDay())) {
@@ -149,14 +155,18 @@ public class CalendarApp {
 		return false;
 	}
 	public void print_meeting_with_contact(String contact) {
+		boolean flag=false;
 		Collections.sort(calendar);
 		for(Event temp:calendar) {
 		       if(temp instanceof MeetingEvent) {
 		    	   if(((MeetingEvent)temp).getContact().equals(contact)) {
+		    		   flag=true;
 		    	   System.out.println(temp);
 		       }
 			}
 		}
+		if(flag==false)
+			System.out.println("no meetings to show");
 	}	
 	public void print_all_events() {
 		Collections.sort(calendar); //sort calendar before printing
