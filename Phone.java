@@ -179,7 +179,7 @@ public class Phone {
 			}
 		
 			case 5: { //check if 2 events collided
-				this.calendar.show_events_of_the_day();
+				this.calendar.remove_overlape_meetings();
 				break;
 			}
 			case 6: { //.print all events and meetings
