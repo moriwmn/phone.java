@@ -70,7 +70,7 @@ public class Phone {
 	public void SmsApp_menu() {
 		int exit = 0;
 		while (exit == 0) {
-			this.sms.print_menu(); //TODO: decide if print is part of sub class App or phone.
+			this.sms.print_menu(); 
 			int choice = Integer.parseInt(input.nextLine());
 			switch (choice) {
 			case 1: { //add chat
@@ -160,7 +160,7 @@ public class Phone {
 					if (name != "error") 
 						this.calendar.remove_event(name);	
 					else
-						System.out.println("there is no such a contact in your phonebook"); //TODO return on error		
+						System.out.println("there is no such a contact in your phonebook"); 	
 				}
 				if (kindOfEv.equals("E") || kindOfEv.equals("e")) {
 					String name="no name";
