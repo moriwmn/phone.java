@@ -1,10 +1,5 @@
 package ex2;
 
-//Group #9
-//Shira Landau 208275248
-//Noa Kohan 315243501
-//Moriya Weitzman 206607459
-
 import java.util.Scanner;
 import java.util.ArrayList; // import the ArrayList class
 import java.util.Collections;
@@ -238,7 +233,6 @@ public class PhoneBookApp {
 	public void menu() 
 	{
 		Scanner input = new Scanner(System.in);
-		//Scanner input = new Scanner(System.in); 	
 		int exit = 0;
 		while (exit == 0) {
 			print_menu();
@@ -247,9 +241,11 @@ public class PhoneBookApp {
 			case 1: 
 				this.add_contact();
 				break;
-			case 2: 
+			case 2: {
 				this.remove_contact();
+				exit =1; //exit for update the chats and calendar
 				break;
+			}
 			case 3: 
 				this.print_book();
 				break;
@@ -275,13 +271,12 @@ public class PhoneBookApp {
 				this.import_from_file();
 				break;
 			case 11:
-				exit++;
+				exit=1;
 				break;
 			default:
 				System.out.println("Invalid number");
 			}//switch
 		}//while
-		//input.close(); 
 	}	
 	
 } //class

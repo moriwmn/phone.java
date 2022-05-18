@@ -1,7 +1,5 @@
 package ex2;
 
-
-
 public abstract class Event implements Comparable<Event>{
 	protected NewDate date;
 	protected long duration; // 1-60 minutes
@@ -11,7 +9,7 @@ public abstract class Event implements Comparable<Event>{
 	{
 		if(duration <= 1 || duration > 60 )
 			System.out.println("Not a valid duration for a meeting");
-		this.date= new NewDate(date);//long getTime() // what does date obj has in it?
+		this.date= new NewDate(date);
 		this.duration=duration;
 	}
 	public void setDate(NewDate dateToSet) {
@@ -41,10 +39,6 @@ public abstract class Event implements Comparable<Event>{
 	}
 	@Override
 	public abstract boolean equals(Object obj);
-	
-	
-	
-	
-	
+
 
 }//class

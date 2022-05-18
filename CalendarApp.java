@@ -11,60 +11,61 @@ import java.util.Calendar;
 public class CalendarApp {
 
 	private LinkedList<Event> calendar;
-
-
-	//ArrayList<LinkedList<String>> array = new ArrayList<LinkedList<String>>(size);
-	//array = new ArrayList<LinkedList<String>>(size);
-	//array[index].add(value); - inserting
 	private static Scanner input = new Scanner(System.in);  // create an object of Scanner
 	
 	//constructor:
 	public CalendarApp() {
         this.calendar=new LinkedList<Event>();
     }
+	
+	//getter:
+	public LinkedList<Event> getCalendar() {
+		return calendar;
+	}
+	
 	//methods:
 	
-	public void add_event(String name) {////// added
+	public void add_event(String name) {
+		//get event details from the user:
+		NewDate new_date=Create_Date();
+		if(!CheckIsValidDate(new_date.getYear(),new_date.getMonth() ,new_date.getDay())) {
+			System.out.println("This date is not valid. you can only enter a date within 30 days from today :)");
+			return;
+		}
+		System.out.println("for how long? (1-60 minutes)");
+		int duretion=input.nextInt();
+		if(duretion<1 || duretion > 60)
+			System.out.println("you are out of range");
+		
+		//add a regular event:
 		if(name.equals("no name"))
 		{
-			NewDate new_date=Create_Date();
-			if(CheckIsValidDate(new_date.getYear(),new_date.getMonth() ,new_date.getDay()))
-			{	int duretion;
-				while(true) {
-				System.out.println("for how long? (1-60 minutes)");
-				duretion=input.nextInt();
-				if(duretion >0 && duretion <= 60)
-					break;
-				System.out.println("you are out of range. please try again");//TODO error massage
-				}
-				System.out.println("Add meeting description");
-				String dsc=input.nextLine();
-				dsc = input.nextLine();
-				RegEvent new_event=new RegEvent(new_date,duretion, dsc);//MeetingEvent(Date date,int duration,String contact
-				this.calendar.add(new_event);/////////////////////
-			}
-			else
-				System.out.println("This date is not valid. pls enter a date that is in 30 days from today :)");//TODO: error massage			
+			System.out.println("Add event description:");
+			String dsc=input.nextLine();
+			dsc = input.nextLine();
+			RegEvent new_event= new RegEvent(new_date,duretion, dsc);
+			this.calendar.add(new_event);		
 		}
+		//add a meeting
 		else 
 		{
-			NewDate new_date=Create_Date();
-			if(CheckIsValidDate(new_date.getYear(),new_date.getMonth() ,new_date.getDay()))
-			{
-				System.out.println("for how long? (1-60 minutes)");
-				int duretion=input.nextInt();
-				if(duretion<1 || duretion > 60)
-					System.out.println("you are out of range");//TODO error massage
-				MeetingEvent new_event=new MeetingEvent(new_date,duretion, name);//MeetingEvent(Date date,int duration,String contact
-				this.calendar.add(new_event);/////////////////////
-			}
-			else
-				System.out.println("This date is not valid. pls enter a date that is in 30 days from today :)");//TODO: error massage			
+			MeetingEvent new_event= new MeetingEvent(new_date,duretion, name);
+			this.calendar.add(new_event);			
 		}
 	}
 		
-	public void remove_event(String name)//////////addedddd
+
+	public void remove_event(String name)
 	{
+		//ask the user for delete by index:
+		System.out.println("Do you want to delete an event by it's index? (y for yes, other char for no)");
+		String ans = input.nextLine();
+		if (ans.equals("y") || ans.equals("Y")) {
+			remove_event_by_index();
+			return;
+		}
+		
+		//if no- get the full details of the meeting/event for delete:
 		if(name.equals("no name"))
 		{//regular event
 			System.out.println("when is the event that you want to delete?");
@@ -73,17 +74,17 @@ public class CalendarApp {
 				System.out.println("what is the meeting longetion? (1-60 minutes)");
 				int duretion=Integer.parseInt(input.nextLine());
 				if(duretion<1 || duretion > 60)
-					System.out.println("you are out of range");//TODO error massage
+					System.out.println("you are out of range");
 				System.out.println("what is the description of the event?");
 				String dsc=input.nextLine();
 				RegEvent new_event= new RegEvent(new_date,duretion,dsc);
 				if(deleted_e(new_event))
 					System.out.println("Event deleted seccesfuly");
 				else 
-					System.out.println("error-cant delete meeting");//TODO error massage
+					System.out.println("error-cant delete meeting");
 			}
 			else
-				System.out.println("This date is not valid. pls enter a date that is in 30 days from today :)");//TODO: error massage			
+				System.out.println("This date is not valid.");			
 		}
 		else
 		{//meeting
@@ -93,15 +94,24 @@ public class CalendarApp {
 				System.out.println("what is the meeting longetion? (1-60 minutes)");
 				int duretion=Integer.parseInt(input.nextLine());
 				if(duretion<1 || duretion > 60)
-					System.out.println("you are out of range");//TODO error massage
+					System.out.println("you are out of range");
 				MeetingEvent new_event= new MeetingEvent(new_date,duretion,name);
 				if(deleted_e(new_event))
 					System.out.println("Meeting deleted seccesfuly");
 				else
-					System.out.println("error-can't delete meeting");//TODO error massage	
+					System.out.println("error-can't delete meeting");	
 			}
 			else
-				System.out.println("This date is not valid. pls enter a date that is in 30 days from today :)");//TODO: error massage	
+				System.out.println("This date is not valid. pls enter a date that is in 30 days from today :)");	
+		}
+	}
+	
+	public void remove_event_by_index() {
+		System.out.println("what is the index of the event you want to delete?");
+		int index = input.nextInt();
+		if(index>=0 && index <calendar.size()) {
+			calendar.remove(index);
+			System.out.println("Event deleted seccesfuly");
 		}
 	}
 	
@@ -126,10 +136,10 @@ public class CalendarApp {
 	System.out.println("1. add event ");
 	System.out.println("2. delete event");
 	System.out.println("3. Print events of a specific date ");
-	System.out.println("4.Print meetings with a specific contact date by order  ");
+	System.out.println("4. Print meetings with a specific contact date by order  ");
 	System.out.println("5. Identify and remove overlapping events ");
-	System.out.println("6.print all events and meetings ");
-	System.out.println("7.exit ");
+	System.out.println("6. print all events and meetings ");
+	System.out.println("7. exit ");
 	System.out.println("********************************************");
 	}
 	
@@ -217,6 +227,7 @@ public class CalendarApp {
 		}
 		return new NewDate(year,month,day,hrs,min);
 	}
+	
 	public NewDate Create_Date_without_time() { 
 		int year,month,day;
 		//get details and validate:
@@ -328,16 +339,16 @@ public class CalendarApp {
 	
 	public void add_some_events_ahead() { //for debug only
 		NewDate new_date= new NewDate(2022,5,19,10,0);
-		RegEvent new_event=new RegEvent(new_date,60, "meeting1");
+		RegEvent new_event=new RegEvent(new_date,60, "event1");
 		this.calendar.add(new_event);
 		NewDate new_date1= new NewDate(2022,5,19,10,30);
-		RegEvent new_event1=new RegEvent(new_date1,10, "meeting2");
+		RegEvent new_event1=new RegEvent(new_date1,10, "event2");
 		this.calendar.add(new_event1);
 		NewDate new_date2= new NewDate(2022,5,19,11,0);
-		RegEvent new_event2=new RegEvent(new_date2,10, "meeting");
+		RegEvent new_event2=new RegEvent(new_date2,10, "event3");
 		this.calendar.add(new_event2);
-		NewDate new_date3= new NewDate(2022,5,19,12,0);
-		RegEvent new_event3=new RegEvent(new_date3,10, "meeting");
+		NewDate new_date3= new NewDate(2022,5,19,11,5);
+		RegEvent new_event3=new RegEvent(new_date3,10, "event4");
 		this.calendar.add(new_event3);
 	}
 	}

@@ -3,10 +3,10 @@ package ex2;
 
 public class MeetingEvent extends Event {
 	
-	private String contactName; //name or contact
+	private String contactName; 
 	
 	public MeetingEvent(NewDate date,int duration,String contact) {
-		super(date,duration);//Event(NewDate date, Int duration) 
+		super(date,duration);
 		this.type=0;
 		this.contactName=contact;
 	}

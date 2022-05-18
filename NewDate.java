@@ -13,10 +13,17 @@ public class NewDate extends Date {
 	private int minute;
 	private int year;
 	
-	public NewDate() {
-		
+	//constructors:
+	public NewDate() {};
+	
+	public NewDate(int year, int month, int day, int hour, int minute) {
+		this.year = year;
+		this.month = month;
+		this.day = day;
+		this.hour = hour;
+		this.minute = minute;
 	}
-
+	
 	public NewDate(NewDate date) {
 		this.year = date.getYear();
 		this.month = date.getMonth();
@@ -25,21 +32,14 @@ public class NewDate extends Date {
 		this.minute = date.getMinute();
 	}
 	
-	public NewDate(int year, int month, int day, int hour, int minute) {
-		//super();
+	//special constructor with day/year/month only
+	public NewDate(int year, int month, int day) {
 		this.year = year;
 		this.month = month;
 		this.day = day;
-		this.hour = hour;
-		this.minute = minute;
 	}
 	
-	public NewDate(int year, int month, int day) {
-		//super();
-		this.year = year;
-		this.month = month;
-		this.day = day;
-	}
+	//getters:
 
 	public int getYear() {
 		return year;
@@ -71,6 +71,8 @@ public class NewDate extends Date {
 	public void setMinute(int minute) {
 		this.minute = minute;
 	}
+	
+	//override functions:
 
 	@Override
 	public boolean equals(Object o) {
@@ -98,7 +100,7 @@ public class NewDate extends Date {
 	public long getTime() {
 		//return time from January 1 2000 in minutes
 		long time=0;
-		time+=((this.getYear()-2000)*365*24*60);;
+		time+=((this.getYear()-2000)*365*24*60); 
 		time+=(this.getDay()*24*60);
 		time+=(this.getHour()*60*60);
 		time+=this.getMinute();
@@ -140,7 +142,6 @@ public class NewDate extends Date {
         	time+=(31*6+29+30*4)*24*30;
         default: 
    	 }
-
 		return time;
 	}	
 }

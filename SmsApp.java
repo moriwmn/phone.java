@@ -84,7 +84,7 @@ public class SmsApp {
 		boolean flag=false;
 		for (Chat chat : chats) {
 			if(chat.isContain(phrase)) {
-				System.out.println("The phrase- " + phrase + " appear in the chat with " + chat.getName()); // TODO: fix
+				System.out.println("The phrase- " + phrase + " appear in the chat with " + chat.getName());
 				flag=true;
 			}
 		}

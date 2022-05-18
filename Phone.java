@@ -1,12 +1,6 @@
 package ex2;
 
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 
 
@@ -27,9 +21,11 @@ public class Phone {
 	}
 	
 	public void PhoneMenu() { 
-		calendar.add_some_events_ahead(); //debug 
-		//Scanner input = new Scanner(System.in);
-		//input.nextLine();
+		//calendar.add_some_events_ahead(); //uncomment it if you want some events for debug 
+		//uncomment lines below if you want some contacts for debug 
+		//phoneBook.add_contact_ahead("Shira", "0542473833");
+		//phoneBook.add_contact_ahead("Noa", "0508231942");
+		//phoneBook.add_contact_ahead("Moriya", "0584913000");
 		int exit = 0;
 		while (exit == 0) {
 			System.out.println("********************Menu********************");
@@ -41,12 +37,11 @@ public class Phone {
 			System.out.println("********************************************");
 			System.out.println("Enter app number:");
 			int app = Integer.parseInt(input.nextLine());
-			//input.nextLine();
-			
 			switch (app) {
 			case 1: {
 				phoneBook.menu();
 				refresh_chats();
+				refresh_calendar();
 				break;
 			}
 			case 2:
@@ -59,9 +54,9 @@ public class Phone {
 				media.menu();
 				break;
 			case 5: 
-				exit++; 
+				exit=1; 
 				break;
-			default: System.out.println("Not valid choice!"); break;
+			default: System.out.println("Not a valid choice!"); break;
 			}
 		}
 		input.close();
@@ -80,7 +75,7 @@ public class Phone {
 					this.sms.add_massage(name);
 				}	
 				else
-					System.out.println("availble for contacts only."); //return on error
+					System.out.println("availble for contacts only.");
 				break;
 			}//case1
 			case 2: { //delete chat 
@@ -89,7 +84,7 @@ public class Phone {
 					this.sms.delete_chat(name);
 				}	
 				else
-					System.out.println(""); //return on error
+					System.out.println("availble for contacts only."); 
 				break;
 			}//case2
 			case 3: { //print chat w/contact
@@ -99,7 +94,7 @@ public class Phone {
 				}	
 				else
 				{ //return on error
-					this.sms.delete_chat(name);
+					System.out.println("availble for contacts only."); 
 				}
 				break;
 			}//case3
@@ -109,18 +104,14 @@ public class Phone {
 				this.sms.find_phrase(phrase);
 				break;
 			}//case4
-			case 5: { // print all chats
+			case 5:  // print all chats
 				this.sms.print_all_chats();
 				break;
-			}//case5
-			case 6: { 
-				exit++;
+			case 6:
+				exit=1;
 				break;
-			}//case6
-	
 			default:
-				throw new IllegalArgumentException("Unexpected value: " + choice);
-			
+				System.out.println("Invalid number ");
 		}//switch
 	}//while
 }//smsappMenu
@@ -135,7 +126,6 @@ public class Phone {
 			{ //add event
 				System.out.println("Do you want to create a meeting or event? please enter: M/E");
 				String kindOfEv = input.nextLine();
-				String dure;
 				if (kindOfEv.equals("M") || kindOfEv.equals("m"))
 				{
 					//AddMeeting()
@@ -143,17 +133,16 @@ public class Phone {
 					if (name != "error") 
 						this.calendar.add_event(name);			
 				}
-				if (kindOfEv.equals("E") || kindOfEv.equals("e"))
-				{
+				else if (kindOfEv.equals("E") || kindOfEv.equals("e"))
 					this.calendar.add_event("no name");
-				}
+				else
+					System.out.println("invalid choice");
 				break;
 			}
 			case 2: 
 			{ //delete event
 				System.out.println("Do you want to delete a meeting or event? please enter: M/E");
 				String kindOfEv = input.nextLine();
-				String dure;
 				if (kindOfEv.equals("M") || kindOfEv.equals("m"))
 				{
 					String name = get_and_validate_contact();//checking if the person is in the phonebook
@@ -162,25 +151,23 @@ public class Phone {
 					else
 						System.out.println("there is no such a contact in your phonebook"); 	
 				}
-				if (kindOfEv.equals("E") || kindOfEv.equals("e")) {
+				else if (kindOfEv.equals("E") || kindOfEv.equals("e")) {
 					String name="no name";
 					this.calendar.remove_event(name);
 				}
+				else
+					System.out.println("invalid choice");
 				break;
 			}
-	
 			case 3: { //print events of the day
 					this.calendar.show_events_of_the_day();
 					break;
-				}	
-			
-	
+				}				
 			case 4: { //print events with contact by order
-				String contact = get_and_validate_contact();//checking if the person is in the phonebook
+				String contact = get_and_validate_contact();//checking if the person is in the phone book
 				this.calendar.print_meeting_with_contact(contact);
 				break;
 			}
-		
 			case 5: { //check if 2 events collided
 				this.calendar.remove_overlape_meetings();
 				break;
@@ -194,7 +181,7 @@ public class Phone {
 				break;
 			}
 			default:
-				throw new IllegalArgumentException("Unexpected value: " + choice);
+				System.out.println("Invalid number ");
 			}
 		}
 		
@@ -204,7 +191,7 @@ public class Phone {
 		//this function gets from the user name of contact
 		//and checks if there is such a contact in the phone-book.
 		//return the name if exist and error o.w.
-		//used by SmsApp and calendarApp
+		//used before calling SmsApp and calendarApp
 		System.out.println("please enter the Contact name: ");
 		String name = input.nextLine();
 		if(this.phoneBook.contatIsExist(name))
@@ -213,19 +200,33 @@ public class Phone {
 		return "error";
 	}
 	
-	public void refresh_chats()//////////////////
+	public void refresh_chats()
 	{
-		boolean flag=false;
+		//refresh chats according the current phone book.
+		//delete chat is the contact deleted
 		Iterator<Chat> iter=this.sms.getChats().iterator();
 		while(iter.hasNext())
 		{
 			Chat temp=iter.next();
 			if(!this.phoneBook.contatIsExist(temp.getName()))
-			{
 				iter.remove();
+		}
+	}
+	
+	public void refresh_calendar()
+	{
+		//refresh chats according the current phone book.
+		//delete chat is the contact deleted
+		Iterator<Event> iter=this.calendar.getCalendar().iterator();
+		while(iter.hasNext())
+		{
+			Event temp=iter.next();
+			if (temp instanceof MeetingEvent)
+			{
+				MeetingEvent meeting = (MeetingEvent) temp;
+				if(!this.phoneBook.contatIsExist(meeting.getContact()))
+					iter.remove();
 			}
 		}
-
 	}
-
 }
