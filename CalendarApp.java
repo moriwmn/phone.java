@@ -52,7 +52,7 @@ public class CalendarApp {
 			if(CheckIsValidDate(new_date.getYear(),new_date.getMonth() ,new_date.getDay()))
 			{
 				System.out.println("for how long? (1-60 minutes)");
-				int duretion=Integer.parseInt(input.nextLine());
+				int duretion=input.nextInt();
 				if(duretion<1 || duretion > 60)
 					System.out.println("you are out of range");//TODO error massage
 				MeetingEvent new_event=new MeetingEvent(new_date,duretion, name);//MeetingEvent(Date date,int duration,String contact
@@ -134,7 +134,7 @@ public class CalendarApp {
 	}
 	
 	public void show_events_of_the_day() {
-		NewDate chooseDate= Create_Date();
+		NewDate chooseDate= Create_Date_without_time() ;
 		for(Event temp:calendar) {
 			if(IsSameDate(temp.getDate(),chooseDate)) {
 		       if(temp instanceof RegEvent) 
@@ -152,7 +152,7 @@ public class CalendarApp {
 		Collections.sort(calendar);
 		for(Event temp:calendar) {
 		       if(temp instanceof MeetingEvent) {
-		    	   if(((MeetingEvent)temp).getContact()==contact) {
+		    	   if(((MeetingEvent)temp).getContact().equals(contact)) {
 		    	   System.out.println(temp);
 		       }
 			}
@@ -207,6 +207,32 @@ public class CalendarApp {
 		}
 		return new NewDate(year,month,day,hrs,min);
 	}
+	public NewDate Create_Date_without_time() { 
+		int year,month,day;
+		//get details and validate:
+		while(true) {
+		System.out.println("please enter the year:");
+		year=input.nextInt();
+		if(year>2000)
+			break;
+		System.out.println("invalid choice, please try again");
+		}
+		while(true) {
+		System.out.println("please enter the month:");
+		month=input.nextInt();
+		if(month>0 && month<13)
+			break;
+		System.out.println("invalid choice, please try again");
+		}
+		while (true) {
+		System.out.println("please enter the day:");
+		day=input.nextInt();
+		if (dayIsValid(month,day))
+			break;
+		System.out.println("invalid choice, please try again");
+		}
+		return new NewDate(year,month,day);
+	}
 	public boolean CheckIsValidDate(int year,int month,int day) 
 	{
 		int gap=0;
@@ -225,24 +251,24 @@ public class CalendarApp {
 		}
 		
 		if (year!=y && m!=12) { //In case the given year is different from the current year and the given month isn't 12
-			System.out.println("error messege");//TODO error messege
+			System.out.println("error invalid date-out of range");
 			return false;
 		}
 		if (year!=y&&month!=1||(month==1&&day>d+gap)) { 
-			System.out.println("error messege");//TODO error messege
+			System.out.println("error invalid date-out of range");
 			return false;
 		}
 
 		if(month==m&&day<d) {
-			System.out.println("error messege");//TODO error messege
+			System.out.println("error invalid date-out of range");
 			return false;
 		}
 		if (month==m+1 && day>d+gap) {
-			System.out.println("error messege");//TODO error messege
+			System.out.println("error invalid date-out of range");
 			return false;
 		}
 		if (month !=m && month!=m+1) {//in case the month is not in range
-			System.out.println("error messege");//TODO error messege
+			System.out.println("error invalid date-out of range");
 			return false;
 		}
 		return true;
