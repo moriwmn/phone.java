@@ -87,8 +87,13 @@ public class NewDate extends Date {
 
 	@Override
 	public String toString() {
+		if( this.minute<10 )
+		{
+			return ("date is "+this.getYear()+" / "+this.month+ " / "+this.day+" in time- "+this.hour+" : 0"+this.minute);
+		}
 		return ("date is "+this.getYear()+" / "+this.month+ " / "+this.day+" in time- "+this.hour+" : "+this.minute);
-	}
+	}	
+	
 	
 	
 	
