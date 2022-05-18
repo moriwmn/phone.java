@@ -128,7 +128,7 @@ public class Phone {
 	public void CalendarApp_menu() {
 		int exit = 0;
 		while (exit == 0) {
-			this.calendar.menu(); //TODO: decide if print is part of sub class App or phone.
+			this.calendar.menu(); 
 			int choice = Integer.parseInt(input.nextLine());
 			switch (choice) {
 			case 1:
@@ -141,8 +141,7 @@ public class Phone {
 					//AddMeeting()
 					String name = get_and_validate_contact();//checking if the person is in the phonebook
 					if (name != "error") 
-						this.calendar.add_event(name);	
-		
+						this.calendar.add_event(name);			
 				}
 				if (kindOfEv.equals("E") || kindOfEv.equals("e"))
 				{
@@ -210,7 +209,7 @@ public class Phone {
 		String name = input.nextLine();
 		if(this.phoneBook.contatIsExist(name))
 			return name;
-		System.out.println("There is no such a name in the phonebook"); //TODO: add error massage
+		System.out.println("There is no such a name in the phonebook"); 
 		return "error";
 	}
 	
