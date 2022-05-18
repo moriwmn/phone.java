@@ -216,29 +216,29 @@ public class CalendarApp {
 		return true;
 	}
 		  
-//	public void remove_same_time_meatings(){
-//		for (Event event : calendar ){
-//		    int index = get_event_index(event); //to delete and change the for loop? 
-//		    for (int i=index+1;i<event.size();i++)
-//		    {
-//		       if(event.time>calc_2dates_delta_in_min(event,calendar(i))){
-//			remove_event(calendar(i));
-//			i--; //return i to indicate the next event;
-//		       }
-//		       else
-//			    break;
-//		    }
-//		}
-//	    }
-//	
-//	 public int calc_2events_delta_in_min(Event event1,Event event2){//only for events with a chance to be ׳—׳•׳₪׳₪׳™׳�
-//
-//		    long delta = event1.date.getTime()-event2.date.getTime();//׳¢׳¨׳� ׳�׳•׳—׳�׳˜???
-//
-//		    // return time difference in minutes.
-//		    return(delta / (1000 * 60) % 60);
-//	    }
+	public void remove_overlape_meetings(){
+		calendar.sort(null);
+		Iterator<Event> c_Iterator = calendar.iterator();
+		while(c_Iterator.hasNext()) {
+			Event this_event = c_Iterator.next();
+			while(true) {
+				Event next_event = c_Iterator.next();
+				if (this_event.getDuration() > calc_2dates_delta_in_min(this_event,next_event)) {
+					c_Iterator.remove();
+				}
+				else
+					break;
+			}
+		}
+			
+		
+	}
 
+private long calc_2dates_delta_in_min(Event event1, Event event2) {
+		long delta = event1.date.getTime()-event2.date.getTime();//
+		// return time difference in minutes.
+		return (delta / (1000 * 60) % 60);
+	}
 	
 	}
 
