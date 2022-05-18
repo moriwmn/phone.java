@@ -36,10 +36,9 @@ public void menu() {
 		System.out.println("2. play media by name");
 		System.out.println("3. play all media");
 		System.out.println("4. Exit from media");
-		System.out.println("5. Exit");
-
-		int func = input.nextInt();
-		input.nextLine();
+		System.out.println("********************************************");
+		int func = Integer.parseInt(input.nextLine());
+		//input.nextLine();
 		
 		switch (func) {
 		case 1: AddMedia(); break;

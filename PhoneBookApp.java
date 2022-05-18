@@ -218,14 +218,13 @@ public class PhoneBookApp {
 	}
 	
 	public boolean numIsValid(String number) {
-		//valid nubber is number with 9/10 digits, or an emergency number
-		if(number == "100" | number == "101" number == "102")
+		//valid number is number with 9/10 digits, or an emergency number
+		if(number == "100" || number == "101"|| number == "102")
 			return true;
-		if(number.size()==9 || number.size()==10 )
+		if(number.length()==9 || number.length()==10 )
 			return true;
 		return false;
 	}
-	
 	
 	public void add_contact_ahead(String  add_name, String add_num) { 
 	//another function to add some contact ahead for debug and check :)
@@ -233,55 +232,55 @@ public class PhoneBookApp {
 		contacts.add(ContactNew);
 	}
 	
-	//******************
-	//main:
+	public void menu() 
+	{
 	
-	public static void menu() {
-	
-	input = new Scanner(System.in); 
-		
-	print_menu();
-	int choice = input.nextInt();
-	input.nextLine();
-	switch(choice) {
-	case 1: 
-		MyPhoneBook.add_contact();
-		break;
-	case 2: 
-		MyPhoneBook.remove_contact();
-		break;
-	case 3: 
-		MyPhoneBook.print_book();
-		break;
-	case 4: 
-		MyPhoneBook.find_contact(); 
-		break;
-	case 5: 
-		MyPhoneBook.sort_by_name(); 
-		break;
-	case 6: 
-		MyPhoneBook.sort_by_number();
-		break;
-	case 7: 
-		MyPhoneBook.remove_duplicate();
-		break;
-	case 8: 
-		MyPhoneBook.invert_order();
-		break;
-	case 9: 
-		MyPhoneBook.save_in_file();
-		break;
-	case 10: 
-		MyPhoneBook.import_from_file();
-		break;
-	case 11:
-		System.out.println("exit Phone Book");
-		break;
-	default:
-		System.out.println("Invalid number");
-	
-	}//switch
-	input.close(); 
+		input = new Scanner(System.in); 
+			
+		print_menu();
+		int choice = Integer.parseInt(input.nextLine());
+		int exit = 0;
+		while (exit == 0) {
+			switch(choice) {
+			case 1: 
+				this.add_contact();
+				break;
+			case 2: 
+				this.remove_contact();
+				break;
+			case 3: 
+				this.print_book();
+				break;
+			case 4: 
+				this.find_contact(); 
+				break;
+			case 5: 
+				this.sort_by_name(); 
+				break;
+			case 6: 
+				this.sort_by_number();
+				break;
+			case 7: 
+				this.remove_duplicate();
+				break;
+			case 8: 
+				this.invert_order();
+				break;
+			case 9: 
+				this.save_in_file();
+				break;
+			case 10: 
+				this.import_from_file();
+				break;
+			case 11:
+				exit++;
+				break;
+			default:
+				System.out.println("Invalid number");
+			
+			}//switch
+		}//while
+		input.close(); 
 
 	}	
 	

@@ -1,14 +1,12 @@
 package ex2;
 
-import java.util.Scanner;
-import java.util.Date;
 
 public class RegEvent extends Event {
 	private String description;
 	
-	public RegEvent(Date date,int duration,String des)
+	public RegEvent(NewDate date,int duration,String des)
 	{
-		super(date,duration);//Event(Date date, int duration) 
+		super(date,duration);//Event(Calendar date, int duration) 
 		this.type=0;
 		this.description=des;
 	}
@@ -19,9 +17,10 @@ public class RegEvent extends Event {
 		this.description=setDes;
 	}
 	
+	
 	@Override
 	public String toString() {
-		return super.toString()+" \r\ncomment: "+this.getComment()+" \r\n";
+		return super.toString()+" \r\ncomment: "+this.getDescription()+" \r\n";
 	}
 	@Override
 	public boolean equals(Object o) {

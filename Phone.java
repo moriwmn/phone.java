@@ -16,7 +16,7 @@ public class Phone {
 	private MediaApp media;
 	private CalendarApp calendar;
 	private PhoneBookApp phoneBook;
-	private static Scanner input; // create an object of Scanner
+	private static Scanner input = new Scanner(System.in); // create an object of Scanner
 	
 	public Phone()
 	{
@@ -27,7 +27,8 @@ public class Phone {
 	}
 	
 	public void PhoneMenu() { 
-		Scanner input = new Scanner(System.in);
+		//Scanner input = new Scanner(System.in);
+		//input.nextLine();
 		int exit = 0;
 		while (exit == 0) {
 			System.out.println("********************Menu********************");
@@ -38,15 +39,15 @@ public class Phone {
 			System.out.println("5. Exit");
 			System.out.println("********************************************");
 			System.out.println("Enter app number:");
-			int app = input.nextInt();
-			input.nextLine();
+			int app = Integer.parseInt(input.nextLine());;
+			//input.nextLine();
 			
 			switch (app) {
 			case 1: 
 				phoneBook.menu();
 				break;
 			case 2:
-				SmsApp_nenu();
+				SmsApp_menu();
 				break; 
 			case 3:
 				CalendarApp_menu(); 
@@ -61,64 +62,70 @@ public class Phone {
 			}
 		}
 		input.close();
-		
-		
-		
-		//switch case for the input val
-		//callthe option menu
-		//for exapmle:
-		//case 1: smsApp.menu(){
-		//		   ............
 	}
 	
-	public void SmsApp_nenu() {
+	public void SmsApp_menu() {
 		this.sms.print_menu(); //TODO: decide if print is part of sub class App or phone.
-		int choice = input.nextInt();
-		switch (choice) {
-		case 1: { //add chat
-			String name = get_and_validate_contact();
-			if (name != "error") {
-				this.sms.add_massage(name);
-			}	
-			else
-				System.out.println(""); //return on error
-		}
-		case 2: { //delete chat 
-			String name = get_and_validate_contact();
-			if (name != "error") {
-				this.sms.delete_chat(name);
-			}	
-			else
-				System.out.println(""); //return on error
-		}
-		case 3: { //print chat w/contact
-			String name = get_and_validate_contact();
-			if (name != "error") {
-				this.sms.print_chat(name);
-			}	
-			else
-				System.out.println(""); //return on error
-		}
-		case 4: { //search for phrase
-			System.out.println("which phrase you want to search? ");
-			String phrase= input.nextLine();
-			this.sms.find_phrase(phrase);
-		}
-		case 5: { // print all chats
-			this.sms.print_all_chats();
-		}
-		case 6: { // exit
+		int choice = Integer.parseInt(input.nextLine());
+		//input.nextLine();
+		int exit = 0;
+		while (exit == 0)
+		{
+			switch (choice) {
+			case 1: { //add chat
+				String name = get_and_validate_contact();
+				if (name != "error") {
+					this.sms.add_massage(name);
+				}	
+				else
+					System.out.println(""); //return on error
+				break;
+			}
+			case 2: { //delete chat 
+				String name = get_and_validate_contact();
+				if (name != "error") {
+					this.sms.delete_chat(name);
+				}	
+				else
+					System.out.println(""); //return on error
+				break;
+			}
+			case 3: { //print chat w/contact
+				String name = get_and_validate_contact();
+				if (name != "error") {
+					this.sms.print_chat(name);
+				}	
+				else
+					System.out.println(""); //return on error
+				break;
+			}
+			case 4: { //search for phrase
+				System.out.println("which phrase you want to search? ");
+				String phrase= input.nextLine();
+				this.sms.find_phrase(phrase);
+				break;
+			}
+			case 5: { // print all chats
+				this.sms.print_all_chats();
+				break;
+			}
+			case 6: { 
+//				this.PhoneMenu();
+//				break;
+				exit++; 
+				break; 
+			}
+	
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + choice);
 			
 		}
-
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + choice);
-		}
 	}
+}
 	
-	public void CalendarApp_nenu() {
+	public void CalendarApp_menu() {
 		this.calendar.menu(); //TODO: decide if print is part of sub class App or phone.
-		int choice = input.nextInt();
+		int choice = Integer.parseInt(input.nextLine());
 		switch (choice) {
 		case 1:
 		{ //add event
@@ -139,7 +146,8 @@ public class Phone {
 				//AddEvent()
 				String name="no name";
 				this.calendar.add_event(name);
-
+			}
+			break;
 		}
 		case 2: 
 		{ //delete event
@@ -158,22 +166,27 @@ public class Phone {
 				String name="no name";
 				this.calendar.remove_event(name);
 			}
+			break;
 		}
 
 		case 3: { //print events of the day
 				this.calendar.show_events_of_the_day();
+				break;
 			}	
 
 		case 4: { //print events with contact by order
-			this.calendar.print_meeting_with_contact();
+			String contact = get_and_validate_contact();//checking if the person is in the phonebook
+			this.calendar.print_meeting_with_contact(contact);
+			break;
 		}
-			
-		}
+	
 		case 5: { //check if 2 events collided
-			this.calendar.
+			this.calendar.show_events_of_the_day();
+			break;
 		}
-		case 6: { // exit
-			
+		case 6: { 
+			this.PhoneMenu();	
+			break;
 		}
 
 		default:
